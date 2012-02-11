@@ -1,0 +1,122 @@
+\documentclass[14pt]{beamer}
+
+
+\usepackage{fancyvrb,relsize}
+\usepackage{slashbox}
+\usetheme{CambridgeUS}
+\usepackage{amsmath}
+\usepackage{courier}
+\usepackage{enumerate}
+\setbeamertemplate{itemize items}[circle]
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{fancybox}
+\usepackage[normalem]{ulem}
+
+\mode<presentation>
+{
+\setbeamertemplate{footline}
+{\rightline{\insertframenumber/\inserttotalframenumber}}
+}
+
+\title{Some Fundamental Doubts...}
+\author{\textbf{Raghesh A}}
+\date{November 4th, 2011}
+
+\begin{document}
+
+% slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+% slide
+\begin{frame}{The Doubts}
+\begin{itemize}
+\item Why Vim/Emacs, Not Notepad/gedit
+\pause
+\item Doubts/Misunderstandings in C
+\pause
+  \begin{itemize}
+    \item Does \textcolor{red}{\#include $<$stdio.h$>$} contain printf?
+\pause
+    \item What is the basic job of a data type?
+\pause
+    \item Can we compare \emph{printf} and functions in maths like $f(x) = x^2 + 1$ ?
+\pause
+    \item Signed and Unsigned, Why 2's complement?
+\pause
+    \item Why ./a.out? Why not a.out?
+\pause
+    \item "I should run my program in DOS. There is no segmentation fault". Should I?
+  \end{itemize}
+\pause
+\item Why latex, not MS Word?
+\end{itemize}
+\end{frame}
+
+%slide
+\begin{frame}{Functions in Maths and Programming Language. Are they similar}
+        \textbf{printf("hello", var1, var2)}
+\begin{itemize}
+\item $f(x,y) = x^2 + y^2$
+\pause
+\item What is the domain and range of this the function $f$?
+\item What is the domain and range of the function printf?
+\pause
+\end{itemize}
+\end{frame}
+
+%slide
+\begin{frame}{Signed and Unsigned, Why 2's complement?}
+\begin{itemize}
+\item Assumption: There are only 4 bits available
+\pause
+\item Unsigned : 0 to 15(0x0000 to 0x1111)
+\item Signed : 0 to 7(0x0000 to 0x0111) -8 to -1(1000 to 1111)
+\pause
+\end{itemize}
+\end{frame}
+
+%slide
+\begin{frame}{The Doubts...}
+\begin{itemize}
+\item Are {\textbf {we}} students capable of contributing?
+  \begin{itemize}
+\pause
+    \item We need an email id
+    \item Basic programming knowledge
+    \item A clean mind
+\pause
+    \item Aim Google Summer of Code(GSOC).
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+% slide
+\begin{frame}{GSOC.. Climbing steps...}
+\begin{itemize}
+\item Acquire necessary background knowledge
+\pause
+\item Pick up a free software project
+\pause
+\item Learn the project
+\pause
+\item Building Confidence - Fix a bug OR Implement a small feature
+\pause
+\item Start contributing and become a developer
+\pause
+\item Apply for GSOC(Prepare a good Application)
+\pause
+\item Be proud of being a GSOCer
+\pause
+\item Work hard for the summer
+\pause
+\item Enjoy the Reward
+\pause
+\item Post GSOC - Don't stop:Continue contributing
+\pause
+\end{itemize}
+\end{frame}
+
+\end{document}
