@@ -1,0 +1,48 @@
+[ I have BCC'ed the all students who submitted a proposal ]
+
+Hello GSoC candidates,
+
+      Many thanks for submitting a GSoC proposal to our organization.
+
+      As we mentioned in a previous email the next step in our evaluation
+      process to have you complete a short programming exercise.  We will
+      evaluate your solution, and based on that evaluation may invite you to
+      interview with us.
+
+      Give the number of proposals we received this year (29), and the short
+      window of time for us to make our decisions (12 days), we need to
+      pre-qualify applicants for interviews to efficiently use our mentoring
+      resources.
+
+      Attached to this email you will find a short interview
+      pre-qualification exercise.
+
+      Here are some basic rules for completing this exercise:
+
+      - Solutions must be written in C and may only use the standard
+      library.
+
+      - Deadline for submitting your solution is Wednesday, 14 April 2010,
+      19:00 UTC.  Solutions received after that time will not be
+      considered.
+
+      - Solutions and any questions regarding this exercise should be
+      mailed to soc-mentors@etherboot.org .
+
+      - We will offer IRC interview times based on our evaluation of your
+      solution.
+
+      We go through the effort of carefully evaluating applicants before
+      acceptance because we want to ensure that all those who we accept will
+      have a successful, positive GSoC experience. In fact, two of our
+      mentors are former GSoC students who have successfully completed
+      projects.
+
+      Thanks again for your proposal.  We look forward to receiving your
+      solution, and if successfully completed, to having an IRC interview
+      with you.
+
+      Regards,
+
+      / Marty /
+
