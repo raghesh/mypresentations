@@ -1,0 +1,15 @@
+Hi,
+
+  I am a second year graduate student doing M. Tech in Computer Science in
+  Indian Institute of Technology, Madras. I am working in area related to
+  auto-parallelization under Dr. Shankar Balachandran.
+
+  I would like to contribute to the Polly project. Before making any
+  contribution I would like to learn the existing code of Polly. Could you
+  please tell me the logical steps to learn the existing system.
+
+  Untill now I was able to build the system as explained here
+  http://wiki.llvm.org/Polyhedral_optimization_framework#Try_Polly
+
+  Regards,
+  Raghesh

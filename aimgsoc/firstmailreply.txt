@@ -1,0 +1,24 @@
+Hi Raghesh,
+
+   I just updated the website with a complete example of how to use polly.
+
+   http://wiki.llvm.org/Polyhedral_optimization_framework#Use_Polly
+
+   I propose to start looking at this example.
+
+   Later I propose you either try your own examples or look into some of 
+   the files in <polly>/test/Codegen/*.c and play a little with those.
+
+The next step is jumping in the code. All passes used in the example 
+mentioned above have corresponding .cpp files in the <polly>/lib 
+directory, some also have got header files. Just look a little bit around.
+
+To get really into the code I propose to get a small project and try to 
+solve it. You could e.g. analyze a SCoP built by SCoPInfo.cpp and find 
+all statements that do not have any write access. Those can easily be 
+dead code eliminated.
+
+If you need any help with this please let me know. ;-)
+
+Cheers
+Tobi
