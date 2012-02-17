@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><script src="myapplication_files/melange.js"></script><script src="myapplication_files/jquery_003.js"></script><script src="myapplication_files/jquery_002.js"></script><script src="myapplication_files/jquery.js"></script><script src="myapplication_files/jquery-ui_003.js"></script><script src="myapplication_files/jquery-ui_004.js"></script><script src="myapplication_files/jquery-ui_002.js"></script><script src="myapplication_files/jquery-ui.js"></script><script src="myapplication_files/jquery-uniform.js"></script><script src="myapplication_files/melange_002.js"></script><script src="myapplication_files/melange_003.js"></script><script src="myapplication_files/jquery-cookie.js"></script><script src="myapplication_files/jquery_004.js"></script><script src="myapplication_files/json2.js"></script>
+  
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  
+
+  <title>Support for memory access transformations in Polly</title>
+
+  
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/reset.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/960.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/global.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/typography.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/structure.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/menu.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/user-messages.css">
+
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/buttons.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/forms.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="myapplication_files/uniform.css">
+
+
+  <!-- Include analytics tracking -->
+  
+    
+<script src="myapplication_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4291635-4']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+  
+<link type="text/css" rel="stylesheet" media="screen" href="myapplication_files/jquery.css"><link href="myapplication_files/ui.css" rel="stylesheet"></head>
+<body>
+
+  
+  
+
+  <!-- TODO: Header should get logo, link and program name from context
+  extra (google) logo will be removed after update.-->
+  <div id="bg">
+  
+    <div id="page-header">
+  <div class="container_12">
+    <div class="grid_12">
+        <div id="gci">
+          <a href="http://www.google-melange.com/gci/homepage/google/gci2011">Looking for Google Code-in? Click here!</a>
+        </div>
+        <a href="http://www.google-melange.com/gsoc/homepage/google/gsoc2011"><img src="myapplication_files/banner-gsoc2011.png" alt="Google Summer of Code" width="924"></a>
+    </div>
+  </div>
+</div>
+<!-- .page-header -->
+
+  
+
+  
+    <div id="main">
+      <div class="container_12">
+        <div id="menu-container" class="grid_3">
+          <div id="main-menu">
+  
+    <ul id="main-menu-list">
+      
+      <li id="menu-home"><a href="http://www.google-melange.com/gsoc/homepage/google/gsoc2011">Home</a></li>
+      
+      
+      
+      <li id="menu-profile"><a href="http://www.google-melange.com/gsoc/profile/show/google/gsoc2011">My Profile</a></li>
+      
+      
+      <li id="menu-dashboard"><a href="http://www.google-melange.com/gsoc/dashboard/google/gsoc2011">My Dashboard</a></li>
+      
+      
+      
+      
+      <li id="menu-about"><a href="http://www.google-melange.com/gsoc/document/show/gsoc_program/google/gsoc2011/home">About</a></li>
+      
+      
+      
+      <li id="menu-projects"><a href="http://www.google-melange.com/gsoc/projects/list/google/gsoc2011">Accepted Projects</a></li>
+      
+      
+      <li id="menu-events"><a href="http://www.google-melange.com/gsoc/events/google/gsoc2011">Events &amp; Timeline</a></li>
+      
+      
+      <li id="menu-connect"><a href="http://www.google-melange.com/gsoc/document/show/gsoc_program/google/gsoc2011/home">Connect With Us</a></li>
+      
+      
+      <li id="menu-search"><a href="http://www.google-melange.com/gsoc/search/google/gsoc2011">Search</a></li>
+      
+      
+      <li id="menu-help"><a href="http://www.google-melange.com/gsoc/document/show/gsoc_program/google/gsoc2011/faqs">Help</a></li>
+      
+      
+      <li id="menu-logout"><a href="http://www.google-melange.com/_ah/logout?continue=https://www.google.com/accounts/Logout%3Fcontinue%3Dhttps://appengine.google.com/_ah/logout%253Fcontinue%253Dhttp://www.google-melange.com/gsoc/proposal/review/google/gsoc2011/raghesh/1%26service%3Dah">Logout</a></li>
+      
+    </ul>
+  
+</div>
+
+
+          
+  
+
+
+<div id="user-menu-container">
+  <div id="floatMenu">
+    <div id="user-menu-inner">
+      <p class="user-menu-inner-title">Proposal Actions</p>
+      <ul id="user-menu-list">
+        
+          
+
+<li id="user-menu-item-publicly-visible" class="on_off">
+  <p class="user-menu-row-title">Publicly Visible</p>
+  
+  <span id="user-menu-question">
+    <a class="load-tooltip" href="#publicly-visible-tooltip" rel="#publicly-visible-tooltip">
+      ?
+    </a>
+  </span>
+  <div style="display: none;" id="publicly-visible-tooltip" class="tooltip">
+    Choosing Yes will make this proposal publicly visible. The proposal 
+will be visible to even those who do not have a user account on this 
+site. The proposal is publicly visible when Yes is displayed in bright 
+orange
+  </div>
+  
+  
+  <div style="width: 84px;" class="iPhoneCheckContainer"><input id="publicly-visible" class="on_off" checked="checked" type="checkbox"><label style="width: 79px;" class="iPhoneCheckLabelOff"><span style="margin-right: -47px;">No</span></label><label style="width: 51px;" class="iPhoneCheckLabelOn"><span>Yes</span></label><div style="width: 31px; left: 47px;" class="iPhoneCheckHandle"><div class="iPhoneCheckHandleRight"><div class="iPhoneCheckHandleCenter"></div></div></div></div>
+</li>
+
+        
+        
+  
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+        </div>
+        <!-- #menu-container.grid_3 -->
+
+        <div class="grid_9">
+          <div class="content">
+               
+            
+
+
+
+
+
+<!-- Proposal Ignored banner -->
+
+
+<!-- Proposal withdrawn banner -->
+
+
+
+<h1 id="project-page-title">
+  Support for memory access transformations in Polly
+</h1>
+<h2 id="project-page-student-name">Raghesh
+
+</h2>
+
+<div class="project-short">
+  
+    <p class="project-mentor"><strong>Email:</strong> raghesh.a@gmail.com</p>
+  
+  
+  <p class="description"><strong>Short description:</strong> The 
+proposed project aims at adding support for memory access 
+transformations in Polly(Polyhedral optimization in LLVM). In many cases
+ it would be great to change the pattern of memory access to obtain 
+better data locality. This can remove dependences that would otherwise 
+block transformations and it can allow LLVM to use registers to store 
+such values.</p>
+  
+  
+</div>
+
+<div class="project-long">
+<p>Polly[2, 7] performs its optimization on LLVM-IR based on the 
+polyhedral model. Currently the transformations can be applied on 
+Schedule (Order of computations) Transformations can also be applied on 
+the Memory Access (Pattern of memory access)[1,4]. A proper memory 
+access transformation can improve data locality. This will in turn 
+improve parallelism. The feature which is going to be added will 
+enable&nbsp; Polly to apply such transformations.</p>
+<p>Some examples which can make use of the feature are listed below</p>
+<ol>
+<li>Considering matrix operations it may be beneficial to switch between row-major access and column major access.</li>
+<li>Consider the following loop</li>
+</ol>
+<p style="padding-left: 30px;">for (i = 0; i &lt; 8; i++)<br>&nbsp;&nbsp;&nbsp;&nbsp; sum += A[i];</p>
+<p style="padding-left: 30px;">With the support of memory access transformation this loop can be executed in parallel. It can be transformed to</p>
+<p style="padding-left: 30px;">&lt;create and initialize an array 'tmp' with size 4&gt;<br>for (i = 0; i &lt; 8; i++) {<br>&nbsp;&nbsp;&nbsp; tmp[i % 4] += A[i];</p>
+<p style="padding-left: 30px;">}<br>sum = tmp[0] + tmp[1] + tmp[2] + tmp[3];</p>
+<p style="padding-left: 30px;">With the help of some optimizer (like PluTo) the following code can be generated, where the outer loop is parallel.</p>
+<p style="padding-left: 30px;">parfor (ii = 0; ii &lt; 4; ii++) {<br>&nbsp; &nbsp; tmp[ii] = 0;<br>&nbsp;&nbsp;&nbsp; for (i = ii * 2; i &lt; (ii+1) * 2; i++)<br>&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; tmp[ii] += A[i];</p>
+<p style="padding-left: 30px;">}<br>sum = tmp[0] + tmp[1] + tmp[2] + tmp[3];<br><strong></strong></p>
+<p><strong><span style="text-decoration: underline;">Implementation Plan<br></span></strong></p>
+<ol>
+<li>Reading and understanding various approaches taken for various data layout transformations based on polyhedral model</li>
+<li>Polyhedral model is expressed in Polly in JSCOP file. Define how 
+memory layout transformations are going to be expressed in Polly and in 
+the JSCOP file. A simple example is given below.<br><br>consider the following loop.<br><br>&nbsp;&nbsp; for (i = 0; i &lt; 12; i++)<br>&nbsp;&nbsp;&nbsp;&nbsp; B[i] = A[i];<br><br>In the JSCOP file the memory is represented as follows.<br><br>&nbsp;&nbsp; "accesses": [{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "kind": "read",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "relation": "{ Stmt[i] -&gt; <strong>A</strong>[i] }"<br>&nbsp;&nbsp;&nbsp; },<br>&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "kind": "write",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "relation": "{ Stmt[i] -&gt; B[i] }"<br>&nbsp;&nbsp;&nbsp; }]<br><br>Suppose
+ we want to perform a transformation such that the statement needs to 
+read from another array say 'tmp' instead of 'A'. The representation 
+should be converted as follows.<br><br>&nbsp;&nbsp;&nbsp; "accesses": [{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "kind": "read",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "relation": "{ Stmt[i] -&gt; <strong>tmp</strong>[i] }"<br>&nbsp;&nbsp;&nbsp; },<br>&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "kind": "write",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "relation": "{ Stmt[i] -&gt; B[i] }"<br>&nbsp;&nbsp;&nbsp; }]<br><br>The following sub tasks can be identified here.<br>
+<ul>
+<li>Examine the JSCOP file to find out the changed memory access entries</li>
+<li>Update memory access information in the current PollySCOP(internal represnetation of a Static Control Part in Polly).</li>
+</ul>
+</li>
+<li>Change code generation phase to incorporate memory access 
+transformations. Here we have to make sure that correct code is 
+generated to reflect the changed transformations.&nbsp; The following 
+subtasks can be identified here.</li>
+</ol>
+<blockquote>
+<ul>
+<li>Phase 1: Support to access an existing array is added here</li>
+</ul>
+</blockquote>
+<ol><ol><ol>
+<li>The new access function is read from the updated PollySCOP representation and calculate the new index.</li>
+<li>Get the old base address for the array.</li>
+<li>To get the new address add the old base address with the newly calculated index in step 1.</li>
+<li>Generate load instruction code for the array with the new address.</li>
+</ol></ol></ol>
+<blockquote>
+<ul>
+<li>Phase 2: Support to allocate new arrays.</li>
+</ul>
+</blockquote>
+<ol><ol><ol>
+<li>Get the name and access function from the updated PollySCOP representation.</li>
+<li>Allocate memory for the new array.</li>
+<li>Generate load instruction for the new array.</li>
+</ol></ol></ol>
+<p>Creating testcases for all the steps will be done in parallel with the implementation.<br><br><span style="text-decoration: underline;"><strong>Success Criteria</strong></span></p>
+<ul>
+<li>Expressing memory access transformations in JSCOP file.</li>
+<li>Correct code is generated for those transformations.</li>
+</ul>
+<p><span style="text-decoration: underline;"><strong>Timeline</strong></span><br><br>A tentative timeline for the implementation described above is given below</p>
+<ol>
+<li>April 26 - May 22 : Read relevant documents and try to understand more about the work.</li>
+<li>May 23 - June 15 : Implement JSCOP representation of memory access transformation.</li>
+<li>June 16 - July 5 : Code generation Phase 1: Add support for changing existing array.</li>
+<li>July 6 - July 10 : Reviewing the implementation and test current 
+implementation with identified testcases. Fix the bugs if any. Ensure 
+that proper documentation for the current implementation is done.</li>
+<li>July 11 - July 15 : Midterm evaluation.</li>
+<li>July 16 - July 31: Code generation Phase 2: Support to allocate new arrays.</li>
+<li>August 1 - August 10: Extra time for unexpected delays.</li>
+<li>August 11 - August 15: Reviewing the implementation and test current
+ implementation with identified testcases. Fix the bugs if any. Ensure 
+that proper documentation for the current implementation is done.</li>
+</ol>
+<p><strong><span style="text-decoration: underline;">If time permits</span></strong></p>
+<p>Adding automatic detection of suitable memory access 
+transformation[1, 3] and improve performance of large testcases like 
+SPEC2006.<br><br><strong><span style="text-decoration: underline;">Benefits for LLVM</span></strong></p>
+<ol>
+<li>Advanced optimizations can be implemented that require memory layout transformations.</li>
+<li>Memory layout transformations to reduce dependences and allow PluTo to apply better transformations.</li>
+</ol>
+<p style="padding-left: 30px;">In general adding features to Polly will add the following benefits.</p>
+<ol>
+<li>Polly will provide an advanced polyhedral optimizer, with already known benefits in respect of data-locality and parallelism.</li>
+<li>LLVM will be the first Open Source compiler (and after IBM XL C the 
+second compiler at all) that implements advanced transformations.</li>
+</ol>
+<p><strong><span style="text-decoration: underline;">About Me</span></strong><br><br>Currently
+ I am a post graduate student in the Department of Computer Science at 
+Indian Institute of technology, Madras,&nbsp; India[5]. I completed my 
+under graduation from MES College of Engineering, Kerala, India. Before 
+joining for graduation I worked in Industry (Aricent Communications) for
+ 18 months.<br><br><strong><span style="text-decoration: underline;">Experience</span></strong><br><br>I
+ am a developer for Polly and I have gained experience in LLVM and Polly
+ by working for implementing OpenMP Parallel backend for Polly. This is 
+almost stable now and is being tested with the polybench benchmarks[6]. I
+ am&nbsp; a co-author of the paper [2] on Polly presented in the 
+workshop IMPACT 2011 as part of CGO 2011.</p>
+<p><strong><span style="text-decoration: underline;">Mentor<br></span></strong></p>
+<p>If this proposal is accepted <strong>Tobias Grosser</strong> (grosser@fim.uni-passau.de) has shown his interest to mentor me.</p>
+<p><strong><span style="text-decoration: underline;">References</span></strong></p>
+<ol>
+<li>Automatic Memory Layout Transformations to Optimize Spatial Locality
+ in Parameterized Loop Nests (2000)&nbsp; (Philippe Clauss ,&nbsp; 
+Benoît Meister)</li>
+<li>Polly – Polyhedral Optimization in LLVM (Tobias Grosser, Hongbin 
+Zheng, Raghesh Aloor, Andreas Simbürger, Armin Größlinger, Louis-Noël 
+Pouchet) IMPACT 2011 as part of CGO 2011.</li>
+<li>Violated Dependence Analysis Nicolas Vasilache, Albert Cohen, Cedric Bastoul, Sylvain Girbal</li>
+<li>P.Feautrier, Array Expansion. In ACM Intl.Conf. on Supercomputing, St. Malo, France, July 1988</li>
+</ol>
+<p><strong><span style="text-decoration: underline;">URLs</span></strong></p>
+<p style="padding-left: 30px;">5. http://www.cse.iitm.ac.in/<br>6. http://www-roc.inria.fr/~pouchet/software/polybench/</p>
+<p style="padding-left: 30px;">7. http://wiki.llvm.org/Polyhedral_optimization_framework</p>
+</div>
+
+
+
+
+<div class="project-comment-container">
+  
+  <div class="project-comment-box project-comment-public-container">
+    <a name="comments"></a><h3>0 comments</h3>
+    
+  </div>
+  <!-- begin comment form -->
+  <a name="comment"></a>
+  <form action="/gsoc/proposal/comment/google/gsoc2011/raghesh/1" method="post" id="form" class="form-project-comment"><div style="display:none;"><input id="xsrftoken" name="xsrf_token" value="oA7-iBvExhUsYfGoj130tjoxMzI5NDc3NzYz" type="hidden"></div>
+  <fieldset id="form-project-comment-fieldset" class="fieldset-project-comment">
+  <legend><span>Leave a comment</span></legend>
+  
+    
+      <div id="form_row_content" class="row content">
+        <textarea aria-hidden="true" style="display: none;" id="melange-content-textarea" class="textarea" rows="10" cols="40" name="content"></textarea><span class="mceEditor defaultSkin" id="melange-content-textarea_parent" aria-labelledby="melange-content-textarea_voice" role="application"><span id="melange-content-textarea_voice" style="display:none;" class="mceVoiceLabel">Rich Text Area</span><table style="width: 500px; height: 400px;" class="mceLayout" id="melange-content-textarea_tbl" role="presentation" cellpadding="0" cellspacing="0"><tbody><tr class="mceFirst" role="presentation"><td role="presentation" class="mceToolbar mceLeft mceFirst mceLast"><div tabindex="-1" id="melange-content-textarea_toolbargroup" role="group" aria-labelledby="melange-content-textarea_toolbargroup_voice"><span role="application"><span id="melange-content-textarea_toolbargroup_voice" class="mceVoiceLabel" style="display:none;">Toolbar</span><table aria-pressed="false" aria-disabled="false" id="melange-content-textarea_toolbar1" class="mceToolbar mceToolbarRow1 Enabled" role="presentation" tabindex="-1" align="" cellpadding="0" cellspacing="0"><tbody><tr><td class="mceToolbarStart mceToolbarStartButton mceFirst"><span><!-- IE --></span></td><td style="position: relative;"><a aria-pressed="false" tabindex="-1" role="button" id="melange-content-textarea_bold" href="javascript:;" class="mceButton mceButtonEnabled mce_bold" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_bold_voice" title="Bold (Ctrl+B)"><span class="mceIcon mce_bold"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_bold_voice">Bold (Ctrl+B)</span></a></td><td style="position: relative;"><a aria-pressed="false" tabindex="-1" role="button" id="melange-content-textarea_italic" href="javascript:;" class="mceButton mceButtonEnabled mce_italic" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_italic_voice" title="Italic (Ctrl+I)"><span class="mceIcon mce_italic"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_italic_voice">Italic (Ctrl+I)</span></a></td><td style="position: relative;"><a aria-pressed="false" tabindex="-1" role="button" id="melange-content-textarea_underline" href="javascript:;" class="mceButton mceButtonEnabled mce_underline" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_underline_voice" title="Underline (Ctrl+U)"><span class="mceIcon mce_underline"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_underline_voice">Underline (Ctrl+U)</span></a></td><td class="mceToolbarEnd"><span><!-- IE --></span></td><td style="position: relative;"><span role="button" aria-haspopup="true" aria-labelledby="melange-content-textarea_fontsizeselect_text" aria-describedby="melange-content-textarea_fontsizeselect_voiceDesc"><table aria-valuenow="Font size" role="presentation" tabindex="-1" id="melange-content-textarea_fontsizeselect" class="mceListBox mceListBoxEnabled mce_fontsizeselect" cellpadding="0" cellspacing="0"><tbody><tr><td class="mceFirst"><span id="melange-content-textarea_fontsizeselect_voiceDesc" class="voiceLabel" style="display:none;">Font size</span><a id="melange-content-textarea_fontsizeselect_text" tabindex="-1" href="javascript:;" class="mceText mceTitle" onclick="return false;" onmousedown="return false;">Font size</a></td><td class="mceLast"><a id="melange-content-textarea_fontsizeselect_open" tabindex="-1" href="javascript:;" class="mceOpen" onclick="return false;" onmousedown="return false;"><span><span style="display:none;" class="mceIconOnly" aria-hidden="true">▼</span></span></a></td></tr></tbody></table></span></td><td style="position: relative;"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative;"><a aria-pressed="false" tabindex="-1" role="button" id="melange-content-textarea_bullist" href="javascript:;" class="mceButton mceButtonEnabled mce_bullist" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_bullist_voice" title="Unordered list"><span class="mceIcon mce_bullist"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_bullist_voice">Unordered list</span></a></td><td style="position: relative;"><a aria-pressed="false" tabindex="-1" role="button" id="melange-content-textarea_numlist" href="javascript:;" class="mceButton mceButtonEnabled mce_numlist" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_numlist_voice" title="Ordered list"><span class="mceIcon mce_numlist"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_numlist_voice">Ordered list</span></a></td><td style="position: relative;"><a aria-disabled="true" tabindex="-1" role="button" id="melange-content-textarea_outdent" href="javascript:;" class="mceButton mce_outdent mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_outdent_voice" title="Outdent"><span class="mceIcon mce_outdent"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_outdent_voice">Outdent</span></a></td><td style="position: relative;"><a tabindex="-1" role="button" id="melange-content-textarea_indent" href="javascript:;" class="mceButton mceButtonEnabled mce_indent" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_indent_voice" title="Indent"><span class="mceIcon mce_indent"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_indent_voice">Indent</span></a></td><td style="position: relative;"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative;"><a aria-disabled="true" tabindex="-1" role="button" id="melange-content-textarea_undo" href="javascript:;" class="mceButton mce_undo mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_undo_voice" title="Undo (Ctrl+Z)"><span class="mceIcon mce_undo"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_undo_voice">Undo (Ctrl+Z)</span></a></td><td style="position: relative;"><a aria-disabled="true" tabindex="-1" role="button" id="melange-content-textarea_redo" href="javascript:;" class="mceButton mce_redo mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_redo_voice" title="Redo (Ctrl+Y)"><span class="mceIcon mce_redo"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_redo_voice">Redo (Ctrl+Y)</span></a></td><td style="position: relative;"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative;"><a aria-pressed="false" tabindex="-1" role="button" id="melange-content-textarea_justifyleft" href="javascript:;" class="mceButton mceButtonEnabled mce_justifyleft" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_justifyleft_voice" title="Align left"><span class="mceIcon mce_justifyleft"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_justifyleft_voice">Align left</span></a></td><td style="position: relative;"><a aria-pressed="false" tabindex="-1" role="button" id="melange-content-textarea_justifycenter" href="javascript:;" class="mceButton mceButtonEnabled mce_justifycenter" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_justifycenter_voice" title="Align center"><span class="mceIcon mce_justifycenter"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_justifycenter_voice">Align center</span></a></td><td style="position: relative;"><a aria-pressed="false" tabindex="-1" role="button" id="melange-content-textarea_justifyright" href="javascript:;" class="mceButton mceButtonEnabled mce_justifyright" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_justifyright_voice" title="Align right"><span class="mceIcon mce_justifyright"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_justifyright_voice">Align right</span></a></td><td style="position: relative;"><span class="mceSeparator" role="separator" aria-orientation="vertical" tabindex="-1"></span></td><td style="position: relative;"><a aria-disabled="true" tabindex="-1" role="button" id="melange-content-textarea_link" href="javascript:;" class="mceButton mce_link mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_link_voice" title="Insert/edit link"><span class="mceIcon mce_link"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_link_voice">Insert/edit link</span></a></td><td style="position: relative;"><a aria-disabled="true" tabindex="-1" role="button" id="melange-content-textarea_unlink" href="javascript:;" class="mceButton mce_unlink mceButtonDisabled" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_unlink_voice" title="Unlink"><span class="mceIcon mce_unlink"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_unlink_voice">Unlink</span></a></td><td style="position: relative;"><a tabindex="-1" role="button" id="melange-content-textarea_anchor" href="javascript:;" class="mceButton mceButtonEnabled mce_anchor" onmousedown="return false;" onclick="return false;" aria-labelledby="melange-content-textarea_anchor_voice" title="Insert/edit anchor"><span class="mceIcon mce_anchor"></span><span class="mceVoiceLabel mceIconOnly" style="display: none;" id="melange-content-textarea_anchor_voice">Insert/edit anchor</span></a></td><td class="mceToolbarEnd mceToolbarEndButton mceLast"><span><!-- IE --></span></td></tr></tbody></table></span></div><a href="#" accesskey="z" title="Jump to tool buttons - Alt+Q, Jump to editor - Alt-Z, Jump to element path - Alt-X" onfocus="tinyMCE.getInstanceById('melange-content-textarea').focus();"><!-- IE --></a></td></tr><tr><td class="mceIframeContainer mceFirst mceLast"><iframe style="width: 100%; height: 356px;" title="Rich Text Area. Press ALT F10 for toolbar. Press ALT 0 for help." src='javascript:""' id="melange-content-textarea_ifr" frameborder="0"></iframe></td></tr><tr class="mceLast"><td class="mceStatusbar mceFirst mceLast"><div aria-labelledby="melange-content-textarea_path_voice" role="group" id="melange-content-textarea_path_row"><span>&nbsp;</span></div></td></tr></tbody></table></span><span class="note"></span>
+      </div>
+    
+  
+  <div id="form-project-comment-fieldset-button-row" class="row button-row">
+    <input id="form-project-comment-submit" value="Submit" class="submit" type="submit">
+  </div>
+</fieldset>
+  </form>
+  <!-- end comment form -->
+</div>
+
+
+          </div>
+          <!-- .content -->
+        </div>
+        <!-- .grid_9 -->
+      </div>
+    <!-- .container_12 -->
+    </div>
+    <!-- .main -->
+  
+
+    
+      <!-- footer -->
+<div id="footer">
+  <div class="container_12">
+    <div class="grid_3">&nbsp;</div>
+    <!-- .grid_3 -->
+    <div class="grid_9">
+        <div class="footer-menu">
+          <ul id="footer-menu-list">
+            
+              <li id="footer-menu-about"><a href="http://www.google-melange.com/gsoc/document/show/gsoc_program/google/gsoc2011/home">About</a></li>
+            
+            
+              <li id="footer-menu-contact"><a href="http://www.google-melange.com/gsoc/document/show/gsoc_program/google/gsoc2011/home">Contact</a></li>
+            
+            
+            
+            
+              <li id="footer-menu-blogger" class="social"><a href="http://google-opensource.blogspot.com/" class="bl">Blogger</a></li>
+            
+            
+              <li id="footer-menu-email" class="social"><a href="mailto:google-summer-of-code-discuss@googlegroups.com" class="em">Email</a></li>
+            
+            
+              <li id="footer-menu-irc" class="social"><a href="irc://irc.freenode.net/gsoc" class="irc">IRC</a></li>
+            
+            
+              <li id="footer-menu-privacy" class="last"><a href="https://www.google.com/intl/en/privacy/privacy-policy.html">Privacy Policy</a></li>
+            
+          </ul>
+        </div>
+        <div class="footer-meta">
+          <span class="powered">Powered by <a href="http://code.google.com/p/soc/wiki/MelangeIntro" target="_blank">
+            <img src="myapplication_files/melange.png" alt="Melange" height="19" width="75">
+          </a></span>
+          Empowered by <a href="http://www.echoditto.com/" target="_blank">
+            <img src="myapplication_files/echoditto.png" alt="EchoDitto" height="21" width="70">
+          </a>
+          <div class="version">Version 2-0-20120216</div>
+        </div>
+    </div>
+    <!-- .grid_9 -->
+  </div>
+  <!-- .container_12 -->
+</div>
+<!-- .footer -->
+
+    
+  </div>
+  <!-- #bg -->
+
+
+
+  
+  <script type="text/javascript" src="myapplication_files/tiny_mce.js"></script>
+  
+  <script type="text/javascript">
+    var xsrf_token = 'oA7-iBvExhUsYfGoj130tjoxMzI5NDc3NzYz';
+  </script>
+  <script type="text/javascript" src="myapplication_files/LAB.js"></script>
+  
+
+  <script type="text/javascript">
+    $LAB
+      .script("/js/2-0-20120216/json/json2.js")
+      
+      .script("https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js")
+      
+      .wait(
+        // Post jQuery loading activities.
+        function () {
+          /* If there are forms, make all the submit buttons in the page appear
+             disabled and prevent them to be submitted again to avoid accidental
+             double clicking. See Issue 980. */
+          jQuery(function() {
+            /* Delegate the function to document so it's likely to be the last event
+               in the queue because of event bubbling. */
+            jQuery(document).delegate("form", "submit", function (e) {
+              var form = jQuery(this);
+              if (form.hasClass("form_disabled")) {
+                e.preventDefault();
+                return false;
+              }
+              else {
+                form
+                  .addClass("form_disabled")
+                  .find(":submit")
+                    .addClass("disabled");
+              }
+              // Reactivate the forms and their buttons after 3 secs as a fallback.
+              setTimeout(function () {
+                form
+                  .removeClass("form_disabled")
+                  .find(":submit")
+                    .removeClass("disabled");
+              }, 3000);
+            });
+          });
+        }
+      )
+      .script("/js/2-0-20120216/jquery/jquery-cookie.js").wait()
+      .script("/soc/content/2-0-20120216/js/melange.js").wait(
+        function () {
+          // set global configuration
+          melange.init({
+            app_version: "2-0-20120216",
+            css_path: "soc/content/2-0-20120216/css/v2/gsoc",
+            
+            google_api_key: "ABQIAAAAvodjk0XqZGx5FtoqCZ7XMBQi1VhnW-vqQaFUVVdNT-Iafxii9RQZZMG0xuNfXzrMjtc3V65oJn-T3Q",
+            
+            
+            is_local: false,
+            
+            gdata_is_logged_in: false,
+          });
+        }
+      )
+      .script("/soc/content/2-0-20120216/js/melange.dependency.js").wait(
+        function () {
+          // Shortcuts facilities for children Django templates
+          var dep = melange.dependency.s;
+          var tc = function (script, context) {
+            return new melange.dependency.templateWithContext(script, context);
+          };
+          var css = function (css_path) {
+            return new melange.dependency.cssFile(css_path);
+          };
+          melange.dependency.loadScripts([
+            
+            [
+              // List eventual default dependencies here
+            ],
+            
+            
+  [
+  dep.uniform,
+  dep.jqueryui.dialog,
+  dep.melange.action,
+  
+  function () {
+    /* Apply Uniform CSS to form fields. */
+    /* Only in this case we are customizing the input type checkbox to be
+       only applied for the field with the id is_private since it interferes
+       with the awesome looking action buttons */
+    jQuery("select, input:radio, input:file, input:checkbox#is_private").uniform();
+
+    /* Change all the tooltips to be displayed onhover over a
+      * question mark. Calling this function only once will take
+      * care of all such instances.
+      */
+    melange.action.createCluetip();
+
+    /* Create the project featured button and make it post using ajax. */
+    
+      melange.action.toggleButton(
+          "publicly-visible", "on_off", "/gsoc/proposal/publicly_visible/google/gsoc2011/raghesh/1",
+          "checked",
+          {checked: "Yes",
+           unchecked: "No"});
+    
+
+    
+      tinyMCE.init(melange.tinyMceConfig(["melange-content-textarea"]));
+    
+    
+
+    jQuery(document).ready(function() {
+      
+    });
+
+    
+  }
+  ]
+
+          ]);
+        }
+      );
+  </script>
+
+
+
+<div style="position: absolute; display: none;" id="cluetip-waitimage"></div><div style="display: none; position: absolute;" id="cluetip"><div style="position: relative; z-index: 97;" id="cluetip-outer" class="ui-cluetip-outer"><h3 id="cluetip-title" class="ui-widget-header ui-cluetip-header"></h3><div id="cluetip-inner" class="ui-widget-content ui-cluetip-content"></div></div><div id="cluetip-extra"></div><div id="cluetip-arrows" class="cluetip-arrows"></div></div></body></html>
