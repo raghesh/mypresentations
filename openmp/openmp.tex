@@ -30,15 +30,34 @@
 % slide
 \begin{frame}{Introduction}
 \begin{itemize}
-\item Standard for shared memory architecture
+\item Standard defining APIs for multi-threaded, shared memory architectures
+\item API contains
+  \begin{itemize}
+  \item Compiler directives
+  \item Runtime library routines
+  \item Environment variables
+  \end{itemize}
 \item Major implementations - libgomp, MPC
 \end{itemize}
 \end{frame}
 
 % slide
+\begin{frame}{OpenMP Programming Model}
+\begin{itemize}
+\item Shared memory
+\item Thread based parallelism
+\item Explicit parallelism
+\item Fork - Join model
+\end{itemize}
+\end{frame}
+
+
+% slide
 \begin{frame}{Constructs for parallelism }
 \begin{itemize}
-\item 1
+\item parallel for
+\item parallel sections
+\item single
 \end{itemize}
 \end{frame}
 
@@ -88,5 +107,14 @@
 \item 1
 \end{itemize}
 \end{frame}
+
+% slide
+\begin{frame}{References}
+\begin{itemize}
+\item https://computing.llnl.gov/tutorials/openMP/
+\item Parallel Programming with OpenMP: Science and Technology Support Group, High Performance Computing, Ohio Supercomputer Center
+\end{itemize}
+\end{frame}
+
 
 \end{document}
