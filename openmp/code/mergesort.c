@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
   int r, i, num_threads;
 
   if (argc < 3) {
-	  fprintf(stderr, "Usage: %s <seed> <num_threads>\n", argv[0]);
+    fprintf(stderr, "Usage: %s <seed> <num_threads>\n", argv[0]);
     fprintf(stderr, "Set num_threads = OMP_NUM_THREADS\n");
 	  exit(EXIT_FAILURE);
   }
@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
     A[i] = r % DATAMAX;
   }
   num_threads = atoi(argv[2]);
-  mergeSortOMPParallel(A, 0, DATASIZE, 8);
+  mergeSortOMPParallel(A, 0, DATASIZE, num_threads);
 
   //printData(A);
   return 0;
