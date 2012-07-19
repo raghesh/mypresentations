@@ -50,7 +50,7 @@ void mergeSortOMPParallel(int A[], int p, int r, int threads) {
     mergeSortSerial(A, p, r);
   else if (threads > 1) {
     int q = (p + r) / 2;
-    int iam = 0, np = 1;
+    int tid = 0, n = 1;
     #pragma omp parallel sections
     {
       #pragma omp section
@@ -58,22 +58,26 @@ void mergeSortOMPParallel(int A[], int p, int r, int threads) {
       #pragma omp section
       mergeSortOMPParallel(A, q, r, threads - threads / 2);
     }
-#if defined (_OPENMP)
-    np = omp_get_num_threads();
-    iam = omp_get_thread_num();
-#endif
-    //printf("Hello from thread %d out of %d \n", iam, np);
     merge(A, p, q, r);
   }
+}
+
+void printData(int A[]) {
+  int i;
+
+  for (i = 0; i < DATASIZE; i++)
+    printf("%d  ", A[i]);
+  printf("\n");
 }
 
 int main(int argc, char *argv[]) {
   unsigned int seed;
   int A[DATASIZE];
-  int r, i;
+  int r, i, num_threads;
 
-  if (argc != 2) {
-	  fprintf(stderr, "Usage: %s <seed>\n", argv[0]);
+  if (argc < 3) {
+	  fprintf(stderr, "Usage: %s <seed> <num_threads>\n", argv[0]);
+    fprintf(stderr, "Set num_threads = OMP_NUM_THREADS\n");
 	  exit(EXIT_FAILURE);
   }
 
@@ -83,11 +87,9 @@ int main(int argc, char *argv[]) {
     r =  rand();
     A[i] = r % DATAMAX;
   }
+  num_threads = atoi(argv[2]);
+  mergeSortOMPParallel(A, 0, DATASIZE, 8);
 
-  //mergeSortSerial(A, 0, DATASIZE);
-  mergeSortOMPParallel(A, 0, DATASIZE, 20);
-
-/*  for (i = 0; i < DATASIZE; i++)
-    printf("%d  ", A[i]);
-  printf("\n");*/
+  //printData(A);
+  return 0;
 }
