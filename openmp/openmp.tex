@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{fancybox}
+\usepackage{fancyvrb}
 \usepackage[normalem]{ulem}
 
 \mode<presentation>
@@ -52,12 +53,11 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Hello world...}[fragile]
-\begin{verbatim}
-
+\begin{frame}[fragile]
+\frametitle{Hello world...}
+\begin{Verbatim}
 #include <omp.h>
 #include <stdio.h>
-
 int main() {        
   int iam =0, np = 1;
 #pragma omp parallel private(iam, np)
@@ -67,20 +67,52 @@ int main() {
     printf("Hello from thread %d out of %d \n", iam, np);
   }
 }
-
-\end{verbatim}
+\end{Verbatim}
 \end{frame}
 
+% slide
+\begin{frame}[fragile]
+\frametitle{Hello world contd...}
+\begin{block}
+{To build: gcc -fopenmp hello.c}
+\end{block}
+\end{frame}
 
 % slide
-\begin{frame}{Constructs for parallelism }
+\begin{frame}[fragile]{Constructs for parallelism}
+General synatax:
+\begin{Verbatim}
+#pragma omp construct [clause [clause]...]
+\end{Verbatim}
+Constructs can be:
 \begin{itemize}
+\item parallel
 \item parallel for
 \item parallel sections
 \item single
 \end{itemize}
 \end{frame}
 
+% slide 
+\begin{frame}[fragile]{The parallel region}
+Fundamental construct that initiates parallel execution:
+\begin{Verbatim}
+#pragma omp parallel [clause [clause]...]
+\end{Verbatim}
+Clauses can be:
+\begin{itemize}
+\item private
+\item shared
+\item firstprivate
+\item reduction
+\item default
+\end{itemize}
+\end{frame}
+
+% slide
+\begin{frame}[fragile]{shared clause]
+
+\end{frame}
 % slide
 \begin{frame}{Constructs for synchronization}
 \begin{itemize}
