@@ -104,15 +104,46 @@ Clauses can be:
 \item private
 \item shared
 \item firstprivate
+\item lastprivate
 \item reduction
-\item default
 \end{itemize}
 \end{frame}
 
 % slide
-\begin{frame}[fragile]{shared clause]
-
+\begin{frame}[fragile]{shared clause}
+\$ export OMP\_NUM\_THREADS=8
+\begin{Verbatim}
+  int b = 0;
+#pragma omp parallel shared(b)
+  {
+    b++;
+  }
+  printf("%d\n", b);
+\end{Verbatim}
+Output: b is incremented by all threads created
 \end{frame}
+
+% slide
+\begin{frame}[fragile]{private clause}
+1
+\end{frame}
+
+% slide
+\begin{frame}[fragile]{firstprivate and lastprivate clauses}
+1
+\end{frame}
+
+% slide
+\begin{frame}[fragile]{reduction clause}
+1
+\end{frame}
+
+
+% slide
+\begin{frame}[fragile]{Example: Dot product in Pthreads, MPI and OPenMP}
+1
+\end{frame}
+
 % slide
 \begin{frame}{Constructs for synchronization}
 \begin{itemize}
@@ -159,6 +190,14 @@ Clauses can be:
 \item 1
 \end{itemize}
 \end{frame}
+
+% slide
+\begin{frame}{OpenMP in Polly}
+\begin{itemize}
+\item 1
+\end{itemize}
+\end{frame}
+
 
 % slide
 \begin{frame}{References}
