@@ -2,7 +2,7 @@
 #include <omp.h>
 #include <stdio.h>
 
-#define SIZE 20
+#define SIZE 10
 int main() {        
   int a[SIZE], b[SIZE], c[SIZE];
   int i, tid;
