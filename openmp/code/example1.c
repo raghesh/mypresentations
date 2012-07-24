@@ -3,11 +3,11 @@
 #include <stdio.h>
 
 int main() {        
-  int iam =0, np = 1;
-#pragma omp parallel private(iam, np)
+  int tid = 0, n = 1;
+#pragma omp parallel private(tid, n)
   {
-    np = omp_get_num_threads();
-    iam = omp_get_thread_num();
-    printf("Hello from thread %d out of %d \n", iam, np);
+    n = omp_get_num_threads();
+    tid = omp_get_thread_num();
+    printf("Hello from thread %d out of %d \n", tid, n);
   }
 }
