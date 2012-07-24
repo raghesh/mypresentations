@@ -144,15 +144,38 @@ Output: Each thread has a copy of variable b. Initial value of b is undefined.
 \end{frame}
 
 % slide
-\begin{frame}[fragile]{firstprivate and lastprivate clauses}
+\begin{frame}[fragile]{firstprivate clause}
+\$ export OMP\_NUM\_THREADS=8
+\begin{Verbatim}
+#include <omp.h>
+#include <stdio.h>
+
+int main() {
+  int b = 20, tid = 0;
+#pragma omp parallel private(tid) firstprivate(b)
+  {
+    b++;
+    tid = omp_get_thread_num();
+    printf("Thread %d: b = %d\n", tid, b);
+  }
+  printf("b = %d\n", b);
+}
+\end{Verbatim}
+\end{frame}
+
+% slide
+\begin{frame}[fragile]{parallel for}
 1
+\end{frame}
+% slide
+\begin{frame}[fragile]{lastprivate clause}
+will not work with parallel consturct, works with parallel for
 \end{frame}
 
 % slide
 \begin{frame}[fragile]{reduction clause}
 1
 \end{frame}
-
 
 % slide
 \begin{frame}[fragile]{Example: Dot product in Pthreads, MPI and OPenMP}
