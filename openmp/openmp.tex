@@ -259,6 +259,44 @@ int main() {
 \end{frame}
 
 % slide
+\begin{frame}[fragile]{critical}
+$ export OMP\_NUM\_THREADS=200
+\begin{Verbatim}
+int main() {        
+  int b = 0;
+#pragma omp parallel shared(b)
+  {
+    b++;
+  }
+  printf("%d\n", b);
+}
+\end{Verbatim}
+Sometimes inconsistencies can be observed.
+\begin{Verbatim}
+int main() {        
+  int b = 0;
+#pragma omp parallel shared(b)
+  {
+#pragma omp critical
+    b++;
+  }
+  printf("%d\n", b);
+}
+\end{Verbatim}
+Perfect !!!
+\end{frame}
+
+% slide
+\begin{frame}[fragile]{barrier}
+$ export OMP\_NUM\_THREADS=200
+\begin{Verbatim}
+
+\end{Verbatim}
+Perfect !!!
+\end{frame}
+
+
+% slide
 \begin{frame}{Constructs for synchronization}
 \begin{itemize}
 \item 1
