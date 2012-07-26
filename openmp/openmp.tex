@@ -315,7 +315,7 @@ Perfect !!!
   \end{itemize}
 \item But a thread has a temporary view(cache, registers, etc.) of shared
   memory. Not all writes by other threads are visible.
-\item So \emph{flush} it.
+\item So \emph{flush} it. Provides a consistent view of memory.
 \end{itemize}
 \end{frame}
 
@@ -339,7 +339,7 @@ Perfect !!!
 % slide
 \begin{frame}[fragile]{An example(no synchronization) - Mergesort}
 \begin{itemize}
-\item Nice and easy way to understand concepts
+\item Easy way to understand concepts
 \item Each recursive calls works on different data sets
 \item So easy to parallelize
 \end{itemize}
