@@ -1,5 +1,4 @@
 \documentclass[14pt]{beamer}
-
 \usetheme{CambridgeUS}
 \usepackage{amsmath}
 \usepackage{courier}
@@ -260,7 +259,7 @@ int main() {
 
 % slide
 \begin{frame}[fragile]{critical}
-$ export OMP\_NUM\_THREADS=200
+\$ export OMP\_NUM\_THREADS=200
 \begin{Verbatim}
 int main() {        
   int b = 0;
@@ -288,18 +287,35 @@ Perfect !!!
 
 % slide
 \begin{frame}[fragile]{barrier}
-$ export OMP\_NUM\_THREADS=200
+\$ export OMP\_NUM\_THREADS=200
 \begin{Verbatim}
-
+int main() {
+  int tid;
+#pragma omp parallel private(tid)
+  {
+    tid = omp_get_thread_num();
+    printf("Thread %d sleeping\n", tid);
+    sleep(tid);
+    printf("Thread %d woke up, but waiting for others\n", tid);
+#pragma omp barrier
+    printf("Thread %d ready to go\n", tid);
+  }
+}
 \end{Verbatim}
 Perfect !!!
 \end{frame}
 
-
 % slide
-\begin{frame}{Constructs for synchronization}
+\begin{frame}{flush}
 \begin{itemize}
-\item 1
+\item OpenMP Memory Model
+  \begin{itemize}
+  \item shared - shared by all threads in the team
+  \item threadprivate - access restricted to individual threads
+  \end{itemize}
+\item But a thread has a temporary view(cache, registers, etc.) of shared
+  memory. Not all writes by other threads are visible.
+\item So \emph{flush} it.
 \end{itemize}
 \end{frame}
 
@@ -321,12 +337,41 @@ Perfect !!!
 \end{frame}
 
 % slide
-\begin{frame}{An example(no synchronization) - Mergesort}
+\begin{frame}[fragile]{An example(no synchronization) - Mergesort}
 \begin{itemize}
 \item Nice and easy way to understand concepts
 \item Each recursive calls works on different data sets
 \item So easy to parallelize
 \end{itemize}
+\begin{Verbatim}
+void mergeSortOMPParallel(int A[], int p, int r, int threads) {
+  if (threads == 1)
+    mergeSortSerial(A, p, r);
+  else if (threads > 1) {
+    int q = (p + r) / 2;
+    int tid = 0, n = 1;
+    #pragma omp parallel sections
+    {
+      #pragma omp section
+      mergeSortOMPParallel(A, p, q, threads / 2);
+      #pragma omp section
+      mergeSortOMPParallel(A, q, r, threads - threads / 2);
+    }
+    merge(A, p, q, r);
+  }
+}
+
+\end{Verbatim}
+\end{frame}
+
+% slide
+\begin{frame}{Mergesort contd..}
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.35]{merge_fig.eps}
+\caption{Mergesort parallel demonstration}
+\end{center}
+\end{figure}
 \end{frame}
 
 % slide
