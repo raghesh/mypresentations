@@ -1,4 +1,4 @@
-\documentclass[14pt]{beamer}
+\documentclass[10pt]{beamer}
 \usetheme{CambridgeUS}
 \usepackage{amsmath}
 \usepackage{courier}
@@ -8,6 +8,7 @@
 \usepackage{listings}
 \usepackage{fancybox}
 \usepackage{fancyvrb}
+\usepackage{relsize}
 \usepackage[normalem]{ulem}
 
 \mode<presentation>
@@ -260,35 +261,28 @@ int main() {
 % slide
 \begin{frame}[fragile]{critical}
 \$ export OMP\_NUM\_THREADS=200
-\begin{Verbatim}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
 int main() {        
   int b = 0;
 #pragma omp parallel shared(b)
   {
+\end{Verbatim}
+\uncover<2->{\#pragma omp critical}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
     b++;
   }
   printf("%d\n", b);
 }
 \end{Verbatim}
-Sometimes inconsistencies can be observed.
-\begin{Verbatim}
-int main() {        
-  int b = 0;
-#pragma omp parallel shared(b)
-  {
-#pragma omp critical
-    b++;
-  }
-  printf("%d\n", b);
-}
-\end{Verbatim}
-Perfect !!!
+\uncover<1>{Sometimes inconsistencies can be observed.}
+\uncover<2->{\newline
+Perfect !!!}
 \end{frame}
 
 % slide
 \begin{frame}[fragile]{barrier}
 \$ export OMP\_NUM\_THREADS=200
-\begin{Verbatim}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
 int main() {
   int tid;
 #pragma omp parallel private(tid)
@@ -297,12 +291,14 @@ int main() {
     printf("Thread %d sleeping\n", tid);
     sleep(tid);
     printf("Thread %d woke up, but waiting for others\n", tid);
-#pragma omp barrier
+\end{Verbatim}
+\uncover<2->{\#pragma omp barrier}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
     printf("Thread %d ready to go\n", tid);
   }
 }
 \end{Verbatim}
-Perfect !!!
+\uncover<2->{Perfect !!!}
 \end{frame}
 
 % slide
@@ -343,7 +339,7 @@ Perfect !!!
 \item Each recursive calls works on different data sets
 \item So easy to parallelize
 \end{itemize}
-\begin{Verbatim}
+\begin{Verbatim}[frame=single, fontsize=\small, formatcom=\color{red}]
 void mergeSortOMPParallel(int A[], int p, int r, int threads) {
   if (threads == 1)
     mergeSortSerial(A, p, r);
@@ -360,7 +356,6 @@ void mergeSortOMPParallel(int A[], int p, int r, int threads) {
     merge(A, p, q, r);
   }
 }
-
 \end{Verbatim}
 \end{frame}
 
@@ -394,8 +389,8 @@ void mergeSortOMPParallel(int A[], int p, int r, int threads) {
 \begin{itemize}
 \item https://computing.llnl.gov/tutorials/openMP/
 \item Parallel Programming with OpenMP: Science and Technology Support Group, High Performance Computing, Ohio Supercomputer Center
+\item Using OpenMP Portable shared memory parallel programming, Barabara Chapman, Garbiele Jost and Ruud Van Der Pas
 \end{itemize}
 \end{frame}
-
 
 \end{document}
