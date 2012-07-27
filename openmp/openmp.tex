@@ -55,7 +55,7 @@
 
 \begin{frame}[fragile]
 \frametitle{Hello world...}
-\begin{Verbatim}
+\begin{Verbatim}[formatcom=\color{red}]
 #include <omp.h>
 #include <stdio.h>
 int main() {        
@@ -68,14 +68,7 @@ int main() {
   }
 }
 \end{Verbatim}
-\end{frame}
-
-% slide
-\begin{frame}[fragile]
-\frametitle{Hello world contd...}
-\begin{block}
-{To build: gcc -fopenmp hello.c}
-\end{block}
+To build: gcc -fopenmp hello.c
 \end{frame}
 
 % slide
@@ -112,7 +105,7 @@ Clauses can be:
 % slide
 \begin{frame}[fragile]{shared clause}
 \$ export OMP\_NUM\_THREADS=8
-\begin{Verbatim}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
   int b = 0;
 #pragma omp parallel shared(b)
   {
@@ -126,7 +119,7 @@ Output: b is incremented by all threads created
 % slide
 \begin{frame}[fragile]{private clause}
 \$ export OMP\_NUM\_THREADS=8
-\begin{Verbatim}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
 #include <omp.h>
 #include <stdio.h>
 int main() {
@@ -146,10 +139,7 @@ Output: Each thread has a copy of variable b. Initial value of b is undefined.
 % slide
 \begin{frame}[fragile]{firstprivate clause}
 \$ export OMP\_NUM\_THREADS=8
-\begin{Verbatim}
-#include <omp.h>
-#include <stdio.h>
-
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
 int main() {
   int b = 20, tid = 0;
 #pragma omp parallel private(tid) firstprivate(b)
@@ -165,10 +155,7 @@ int main() {
 
 % slide
 \begin{frame}[fragile]{parallel for}
-\begin{Verbatim}
-#include <omp.h>
-#include <stdio.h>
-
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
 #define SIZE 20
 int main() {        
   int a[SIZE], b[SIZE], c[SIZE];
@@ -178,7 +165,6 @@ int main() {
     a[i] = i;
     b[i] = 2 * i;
   }
-
 #pragma omp parallel  shared(a), private(i, tid)
   {
 #pragma omp for
@@ -188,7 +174,6 @@ int main() {
       printf("Thread %d, i = %d\n", tid, i);
     }
   }
-
   for(i = 0; i < SIZE; i++)
     printf("%d\n", c[i]);
 }
@@ -213,10 +198,7 @@ will not work with parallel consturct, works with parallel for
 
 % slide
 \begin{frame}[fragile]{reduction clause}
-\begin{Verbatim}
-#include <omp.h>
-#include <stdio.h>
-
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
 #define SIZE 10
 int main() {
   int a[SIZE], b[SIZE], c[SIZE];
