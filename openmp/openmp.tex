@@ -165,9 +165,9 @@ int main() {
     a[i] = i;
     b[i] = 2 * i;
   }
-#pragma omp parallel  shared(a), private(i, tid)
+  #pragma omp parallel  shared(a, b, c), private(i, tid)
   {
-#pragma omp for
+    #pragma omp for
     for(i = 0; i < SIZE; i++) {
       c[i] = a[i] + b[i];
       tid = omp_get_thread_num();
@@ -182,13 +182,44 @@ Observe the parallelism. work is distributed among threads.
 \end{frame}
 
 % slide
-\begin{frame}[fragile]{parallel for with different chunk size}
-0
+\begin{frame}[fragile]{parallel for with specified shcedule and chunk size}
+\begin{itemize}
+\item static - iterations statically assigned. If chuck size is not specified
+iterations are evenly divieded to threads.
+\item dynamic - iterations are dynamically assigned to threads. If one thread
+finishes a chunk another chunk is assigned.
+\item guided - chunk size varies proportional to the remaining iterations.
+\item runtime - schedule is decided at runtime from OMP\_SCHEDULE.
+\end{itemize}
 \end{frame}
 
-% slide
-\begin{frame}[fragile]{parallel for with different schedule size}
-0
+\begin{frame}[fragile,shrink]{parallel for with specified shcedule and chunk size}
+\$ export OMP\_NUM\_THREADS=8
+Set schedule(s) and chunk size(n):\\
+\$ export OMP\_SCHEDULE="s, n"
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
+int main() {
+  int a[SIZE], b[SIZE], c[SIZE];
+  int i, tid;
+
+  for(i = 0; i < SIZE; i++) {
+    a[i] = i;
+    b[i] = 2 * i;
+  }
+  #pragma omp parallel  shared(a, b, c), private(i, tid)
+  {
+  #pragma omp for schedule(runtime)
+    for(i = 0; i < SIZE; i++) {
+      c[i] = a[i] + b[i];
+      tid = omp_get_thread_num();
+      printf("Thread %d, i = %d\n", tid, i);
+    }
+  }
+
+  for(i = 0; i < SIZE; i++)
+    printf("%d\n", c[i]);
+}
+\end{Verbatim}
 \end{frame}
 
 % slide
@@ -298,6 +329,42 @@ int main() {
 \end{frame}
 
 % slide
+\begin{frame}[shrink]{Possible OpenMP Errors}
+\begin{itemize}
+\item Unnecessary parallelization
+\item Incorrect usage of the ordered clause
+\item Using a lock variable without initializing the variable
+\item Unsetting a lock from another thread
+\item Using a lock as a barrier
+\item Concurrent usage of a shared resource
+\item Using the flush directive with a reference type
+\item Missing flush directive
+\item Missing synchronization
+\item An external variable is specified as threadprivate not in all units
+\item Forgotten private clause
+\item Incorrect worksharing with private variables
+\item Careless usage of the lastprivate clause
+\item Unexpected values of threadprivate variables in the beginning of parallel sections
+\item Some restrictions of private variables
+\item Parallel array processing without iteration ordering
+\item Unnecessary flush directive
+\item Using critical sections or locks instead of the atomic directive
+\item Unnecessary concurrent memory writing protection
+\item Too much work in a critical section
+\item Too many entries to critical sections
+\end{itemize}
+\end{frame}
+
+% slide
+\begin{frame}{OpenMP Verifiers}
+\begin{itemize}
+\item VivaMP Tool -  \url{http://www.viva64.com/en/vivamp-tool/}
+\item Complete Formal Specification of the OpenMP Memory Model,
+  Greg Bronevetsky and Bronis R. de Supinski
+\end{itemize}
+\end{frame}
+
+% slide
 \begin{frame}{Restrictions on synchronization over parallelism}
 \begin{itemize}
 \item Restriction on the position of omp barrier inside omp parallel
@@ -366,6 +433,8 @@ void mergeSortOMPParallel(int A[], int p, int r, int threads) {
 \item Parallel Programming with OpenMP: Science and Technology Support Group, High Performance Computing, Ohio Supercomputer Center
 \item Using OpenMP Portable shared memory parallel programming, Barabara Chapman, Garbiele Jost and Ruud Van Der Pas
 \item http://www.viva64.com/en/a/0054/
+\item Complete Formal Specification of the OpenMP Memory Model,
+  Greg Bronevetsky and Bronis R. de Supinski
 \end{itemize}
 \end{frame}
 

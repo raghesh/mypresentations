@@ -12,9 +12,9 @@ int main() {
     b[i] = 2 * i;
   }
 
-#pragma omp parallel  shared(a, b, c), private(i, tid)
+  #pragma omp parallel  shared(a, b, c), private(i, tid)
   {
-#pragma omp for
+    #pragma omp for schedule(runtime)
     for(i = 0; i < SIZE; i++) {
       c[i] = a[i] + b[i];
       tid = omp_get_thread_num();
