@@ -45,6 +45,7 @@
 % slide
 \begin{frame}{OpenMP Programming Model}
 \begin{itemize}
+\item Sequenitial version is preserved
 \item Shared memory
 \item Thread based parallelism
 \item Explicit parallelism
@@ -324,6 +325,36 @@ int main() {
 \end{frame}
 
 % slide
+\begin{frame}[fragile]{Example - Metrix times vector}
+\end{frame}
+% slide
+\begin{frame}[fragile]{Example - Mergesort}
+\begin{itemize}
+\item Easy way to understand concepts
+\item Each recursive calls works on different data sets
+\item So easy to parallelize
+\end{itemize}
+\begin{Verbatim}[frame=single, fontsize=\small, formatcom=\color{red}]
+void mergeSortOMPParallel(int A[], int p, int r, int threads) {
+  if (threads == 1)
+    mergeSortSerial(A, p, r);
+  else if (threads > 1) {
+    int q = (p + r) / 2;
+    int tid = 0, n = 1;
+    #pragma omp parallel sections
+    {
+      #pragma omp section
+      mergeSortOMPParallel(A, p, q, threads / 2);
+      #pragma omp section
+      mergeSortOMPParallel(A, q, r, threads - threads / 2);
+    }
+    merge(A, p, q, r);
+  }
+}
+\end{Verbatim}
+\end{frame}
+
+% slide
 \begin{frame}[shrink]{Possible OpenMP Errors}
 \begin{itemize}
 \item Unnecessary parallelization
@@ -376,32 +407,6 @@ int main() {
 \end{itemize}
 \end{frame}
 
-% slide
-\begin{frame}[fragile]{An example - Mergesort}
-\begin{itemize}
-\item Easy way to understand concepts
-\item Each recursive calls works on different data sets
-\item So easy to parallelize
-\end{itemize}
-\begin{Verbatim}[frame=single, fontsize=\small, formatcom=\color{red}]
-void mergeSortOMPParallel(int A[], int p, int r, int threads) {
-  if (threads == 1)
-    mergeSortSerial(A, p, r);
-  else if (threads > 1) {
-    int q = (p + r) / 2;
-    int tid = 0, n = 1;
-    #pragma omp parallel sections
-    {
-      #pragma omp section
-      mergeSortOMPParallel(A, p, q, threads / 2);
-      #pragma omp section
-      mergeSortOMPParallel(A, q, r, threads - threads / 2);
-    }
-    merge(A, p, q, r);
-  }
-}
-\end{Verbatim}
-\end{frame}
 
 % slide
 \begin{frame}{Mergesort contd..}
