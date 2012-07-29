@@ -325,8 +325,22 @@ int main() {
 \end{frame}
 
 % slide
-\begin{frame}[fragile]{Example - Metrix times vector}
+\begin{frame}[fragile]{Example - Matrix times vector}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
+void mxv(int m, int n, double *a, double *b, double *c) {
+  int i, j;
+\end{Verbatim}
+\uncover<2->{\#pragma omp parallel for shared(m,n,a,b,c), private(i,j)}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
+  for (i=0; i<m; i++) {
+    a[i] = 0.0;
+    for (j=0; j<n; j++)
+      a[i] += b[i*n+j]*c[j];
+  }
+}
+\end{Verbatim}
 \end{frame}
+
 % slide
 \begin{frame}[fragile]{Example - Mergesort}
 \begin{itemize}
@@ -353,6 +367,17 @@ void mergeSortOMPParallel(int A[], int p, int r, int threads) {
 }
 \end{Verbatim}
 \end{frame}
+
+% slide
+\begin{frame}{Mergesort contd..}
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.35]{merge_fig.eps}
+\caption{Mergesort parallel demonstration}
+\end{center}
+\end{figure}
+\end{frame}
+
 
 % slide
 \begin{frame}[shrink]{Possible OpenMP Errors}
@@ -405,17 +430,6 @@ void mergeSortOMPParallel(int A[], int p, int r, int threads) {
 \item cost of one task creation
 \item other costs?
 \end{itemize}
-\end{frame}
-
-
-% slide
-\begin{frame}{Mergesort contd..}
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.35]{merge_fig.eps}
-\caption{Mergesort parallel demonstration}
-\end{center}
-\end{figure}
 \end{frame}
 
 % slide
