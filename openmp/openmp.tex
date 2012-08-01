@@ -317,6 +317,25 @@ int main() {
 Perfect !!!}
 \end{frame}
 
+\begin{frame}[fragile]{atomic}
+\begin{itemize}
+\item Similar to critical, but less overhead
+\item Lock is obtained with Operating system support
+\item Can be applied only to simple binary operators
+\item Operators are +, *, -, /, \&, $<<$, $>>$, $\wedge$, $|$
+\end{itemize}
+\begin{Verbatim}[fontsize=\small, formatcom=\color{red}]
+int count = 0;
+#pragma omp parallel shared(count)
+{
+  #pragma omp atomic
+  //count = count + 1; //Not working?
+  count++;
+}
+printf("%d\n", count);
+\end{Verbatim}
+\end{frame}
+
 % slide
 \begin{frame}[fragile]{barrier}
 \$ export OMP\_NUM\_THREADS=200

@@ -18,6 +18,7 @@ int main() {
     for(i = 0; i < SIZE; i++) {
       result += a[i] + b[i];
     }
+    printf("%d\n", result);
   }
 
   printf("result = %d\n", result);
