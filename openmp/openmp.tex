@@ -359,15 +359,34 @@ int main() {
 \end{frame}
 
 % slide
+\begin{frame}{OpenMP Memory Model}
+\begin{itemize}
+\item Relaxed-consistency, shared-memory model
+\item shared - shared by all threads in the team
+\item Threads are allowed(not mandatory) to have temporary view of memory
+(registers, cache...)
+\item Temporary view permits for immediate access
+\item Assuring consistent data access is responsibility of programmer
+\item threadprivate - access restricted to individual threads
+\item Reference to shared variable is a reference to the original variable
+\item Reference to private variable creates a new version of the original
+variable
+\item Memory access is not guaranteed to be atomic
+\item The result of the program is unspecified if a data race occurs
+\end{itemize}
+\end{frame}
+
+% slide
 \begin{frame}{flush}
 \begin{itemize}
-\item OpenMP Memory Model
-  \begin{itemize}
-  \item shared - shared by all threads in the team
-  \item threadprivate - access restricted to individual threads
-  \end{itemize}
-\item But a thread has a temporary view(cache, registers, etc.) of shared
-  memory. Not all writes by other threads are visible.
+\item A thread's temporary view may not be consistent with memory
+\begin{itemize}
+  \item Value written to variable can remain in temporary view until it is
+        forced to write to memory
+  \item Read from a variable may retrieve value from thread's temporary view
+\end{itemize}
+\item OpenMP flush operation enforces consistency between temporary view and
+memory
 \item So \emph{flush} it. Provides a consistent view of memory.
 \end{itemize}
 \end{frame}
