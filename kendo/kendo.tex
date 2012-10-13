@@ -1,0 +1,109 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\setbeamercovered{invisible}
+% To remove the navigation symbols from 
+% the bottom of slides%
+%\setbeamertemplate{navigation symbols}{} 
+%
+\usepackage{graphicx}
+%\usepackage{bm}         % For typesetting bold math (not \mathbold)
+%\logo{\includegraphics[height=0.6cm]{yourlogo.eps}}
+%
+\title[Kendo]{Kendo: Efficient Deterministic Multithreading in Software}
+\author{Raghesh A}
+\institute[CSE IIT Madras]
+{
+  IIT Madras\\
+  \medskip
+  {\emph{raghesh@cse.iitm.ac.in}}
+}
+\date{October 19, 2012}
+\AtBeginSection[]
+{
+  \begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[currentsection, currentsubsection]
+    \end{frame}
+}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Abstract}
+\begin{frame}
+\frametitle{Abstract}
+\begin{itemize}
+\item Sequential programs are deterministic
+\item Parallel programs are non-deterministic
+\item Non-determinism in parallel programs is a great challenge
+\begin{itemize}
+  \item No repeatable results
+  \item Hard to debug, test and maintain
+\end{itemize}
+\item Kendo: deterministic multithreading of parallel applications
+\begin{itemize}
+  \item Deterministic interleaving of lock acquisitions
+  \item Dynamically load-balanced scheduling algorithm
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Motivation}
+\begin{frame}
+\frametitle{Deterministic Multithreading: Benefits}
+\end{frame}
+
+\section{Introduction}
+\begin{frame}
+\frametitle{Introduction}
+\begin{itemize}
+\item Desired behavior: Same input $\implies$ Same output
+\item Sequential programs: Desired behavior guaranteed
+\item Shared memory, multithreaded programs: Desired behavior not inherent
+\item Authors argument: Non-determinism is not a requisite aspect
+\begin{itemize}
+\item Deterministic interleaving of thread communication with shared memory
+\item Restore determinism provided by sequential programs
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Design}
+\begin{frame}
+\frametitle{Design}
+\end{frame}
+
+\section{Kendo: Implementation}
+\begin{frame}
+\frametitle{Kendo: Implementation}
+\end{frame}
+
+
+\section{Experimental Results}
+\begin{frame}
+\frametitle{Experimental Results}
+\end{frame}
+\section{References}
+
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+  \begin{thebibliography}{99}
+  \bibitem[Label1, 2010]{key1} Author's name (1987)
+    \newblock Title of the paper.
+    \newblock \emph{Journal Name} 55(4), 765 -- 799.
+    \end{thebibliography}
+}
+\end{frame}
+
+\begin{frame}
+\centerline{Questions?}
+\end{frame}
+
+\end{document}
