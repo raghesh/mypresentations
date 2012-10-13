@@ -387,7 +387,20 @@ variable
 \end{itemize}
 \item OpenMP flush operation enforces consistency between temporary view and
 memory
-\item So \emph{flush} it. Provides a consistent view of memory.
+\end{itemize}
+\end{frame}
+
+% slide
+\begin{frame}{ }
+\begin{itemize}
+\item If the intersection of the flush-sets of two flushes performed by two
+different threads is non-empty, then the two flushes must be completed as if
+in some sequential order, seen by all threads.
+\item If two operations performed by the same thread either access, modify, or
+flush the same variable, then they must be completed as if in that thread's
+program order, as seen by all threads.
+\item If the intersection of the flush-sets of two flushes is empty, the
+threads can observe these flushes in any order.
 \end{itemize}
 \end{frame}
 
