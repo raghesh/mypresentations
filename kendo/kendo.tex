@@ -71,17 +71,76 @@
 \item Deterministic interleaving of thread communication with shared memory
 \item Restore determinism provided by sequential programs
 \end{itemize}
+\item Deterministic multithreading
+\begin{itemize}
+  \item Strong determinism
+  \item Weak determinism
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Existing Models}
+\begin{frame}
+\frametitle{Existing Models}
+\begin{itemize}
+\item Cilk - Only in absence of locks
+\item OpenMP - Can be reduced to sequential version, but parallel version
+      is non deterministic
+\item Record/replay systems
+\begin{itemize}
+  \item Provides determinism between a single record and a set of replays
+  \item Two executions with same inputs may not run the same way
+  \item Only selective deteriminism enforced
+\end{itemize}
+\item Enforce determinism manually
+\begin{itemize}
+  \item Write code using only commutative updates to shared data
+  \item Require careful construction
+  \item Error-prone
+  \item More restrictions
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{An Example with non-commutative updates}
+\begin{itemize}
+\item TODO: Put example here
+\end{itemize}
+\end{frame}
+
+\subsection{Determinism in Kendo}
+\begin{frame}
+\frametitle{Determinism in Kendo}
+\begin{itemize}
+\item TODO
 \end{itemize}
 \end{frame}
 
 \section{Design}
 \begin{frame}
 \frametitle{Design}
+\begin{itemize}
+\item Deterministic logical time
+\item Locking Algorithm
+\begin{itemize}
+  \item Simplified locking algorithm
+  \item Improved locking algorithm
+  \item Locking algorithm optimizations
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 \section{Kendo: Implementation}
 \begin{frame}
 \frametitle{Kendo: Implementation}
+\begin{itemize}
+\item Deterministic logic clocks
+\item Thread Creation
+\item Lazy reads
+\item Application program interface
+\end{itemize}
 \end{frame}
 
 
