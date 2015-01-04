@@ -121,20 +121,85 @@ Execution 1 & Execution 2 & Execution 3\\
 
 \begin{frame}{Relaxed Consistency (RC)}
 \begin{itemize}
-\item Sequential consistency is hard to realize.
+\item SC is hard to realize.
 \item Too much restriction for hardware and compiler optmizations
-\item So we require \textbf{Relaxed Consistency Models}.
-\item Same program may exhibit more executions on
-      a relaxed model than SC~\cite{Burckhardt2008}.
+\item Even SC may not always be produce correct output.
+\item So we can live with \textbf{Relaxed Consistency Models}.
+\item Potential relaxations
   \begin{itemize}
-  \item Let $T_{\Pi}^Y$ be the set of executions on memory model Y. Then $T_{\Pi}^Y \subset T_{\Pi}^{SC}$.
-  \item TODO: Write formally from paper 
-  \item Write the two steps to verify a problem in RC.
+  \item Program order: (Refers to different memory locations)
+    \begin{itemize}
+    \item Relax $W \rightarrow R$ program order.
+    \item Relax $W \rightarrow W$ program order.
+    \item Relax $R \rightarrow R$ and $R \rightarrow W$ program order.
+    \end{itemize}
+  \item Write atomicite: (Refers to same memory location)
+    \begin{itemize}
+    \item Read others' write early.
+    \end{itemize}
+  \item Write atomicity and program order.
+    \begin{itemize}
+    \item Read own write early
+    \end{itemize}
   \end{itemize}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Total Store Order (TSO)}
+\begin{figure}
+\small
+\begin{tabular}{|l|p{1.2cm}|p{1.2cm}|p{1.3cm}|p{1.2cm}|p{1.2cm}|}
+\hline
+Model & $W \rightarrow R$ order & $W \rightarrow W$ order & $R \rightarrow RW$ order & R Others' W Early & R Own W Early\\
+\hline
+TSO   & $\surd$                 &                         &                          &                   & $\surd$      \\
+\hline
+\end{tabular}
+\end{figure}
+\end{frame}
 
+\begin{frame}{Relaxed Consistency (RC)}
+\begin{itemize}
+\item Same program may exhibit more executions on
+      a relaxed model than SC~\cite{Burckhardt2008}.
+\item Let $T_{\Pi}^Y$ be the set of executions on memory model Y.
+        Then $T_{\Pi}^Y \subset T_{\Pi}^{SC}$~\cite{Burckhardt2008}.
+\item To verify relaxed executions \rlxset{}, verify following two problems.
+  \begin{itemize}
+  \item Use standard verification methodology for concurrent programs to show that
+        the executions in \scset{} are correct.
+  \item Use specialized methodology for {\em memory model safety} verification
+        showing that \rlxset{} $=$ \scset{}.
+  \item The program is $Y-safe$  if \rlxset{} $=$ \scset{}.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Linearisability}
+\end{frame}
+
+
+
+
+\begin{frame}{Relaxed Consistency (RC)}
+\begin{itemize}
+\item Same program may exhibit more executions on
+      a relaxed model than SC~\cite{Burckhardt2008}.
+  \item Let $T_{\Pi}^Y$ be the set of executions on memory model Y.
+        Then $T_{\Pi}^Y \subset T_{\Pi}^{SC}$~\cite{Burckhardt2008}.
+  \item To verify relaxed executions \rlxset{}, verify following two problems.
+  \begin{itemize}
+  \item Use standard verification methodology for concurrent programs to show that
+        the executions in \scset{} are correct.
+  \item Use specialized methodology for {\em memory model safety} verification
+        showing that \rlxset{} $=$ \scset{}.
+  \item The program is $Y-safe$  if \rlxset{} $=$ \scset{}.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}{Total Store Order (TSO)}
+
+\end{frame}
 \begin{frame}{Linearisability}
 \end{frame}
 
