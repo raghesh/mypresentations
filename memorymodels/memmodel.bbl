@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{Adve2010}
+Sarita~V. Adve and Hans-J. Boehm.
+\newblock Memory models: A case for rethinking parallel languages and hardware.
+\newblock {\em Commun. ACM}, 53(8):90--101, August 2010.
+
+\bibitem{Burckhardt2008}
+Sebastian Burckhardt and Madanlal Musuvathi.
+\newblock Effective program verification for relaxed memory models.
+\newblock In {\em Proceedings of the 20th International Conference on Computer
+  Aided Verification}, CAV '08, pages 107--120, Berlin, Heidelberg, 2008.
+  Springer-Verlag.
+
+\end{thebibliography}

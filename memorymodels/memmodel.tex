@@ -1,0 +1,149 @@
+\documentclass[9pt]{beamer}
+\input{header}
+
+\title{\Large{Memory Consistency Models}}
+\author[Raghesh A]{\Large{Raghesh A }(CS12D015)\newline\newline
+                   %\footnotesize{Guide: V Krishna Nandivada}
+}
+\institute{PACE Lab, Department of CSE, IIT Madras}
+\date{\today}
+
+\begin{document}
+
+% slide
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Why ...?}
+\begin{itemize}
+\item Multithreaded programs run on either
+  \begin{itemize}
+  \item a Uniprocessor \pause OR
+  \item Multicores.
+  \end{itemize}
+\pause
+\item One simple way to argue about the correctness of multithreaded programs
+      is by looking at the output produced.
+\pause
+\item Multiple outputs may be acceptable.
+\pause
+\item The indeterministic nature of multithreaded programs makes programmer's
+      life difficult to ensure correctness.
+\pause
+  \begin{itemize}
+  \item One common approach is to apply synchronization.
+  \item But the degree of synchronization must be minimal.
+  \item Basically synchronization controls the order of read and write to
+        shared memory locations.
+  \item Without sychronization the order of read and writes may be altered either
+        by compiler (optmizations) or by hardware for better performance.
+  \end{itemize}
+\pause
+\item The objective.
+  \begin{itemize}
+  \item Less compromise on performance - With less degree of synchronization 
+  shall we get acceptable output ????
+  \item Arguing about the correctness of the program.
+  \end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Memory Model}
+\begin{itemize}
+\item A formal specification of how the memory system will appear to the programmer.
+\item Eliminating gap between expected behaviour (by the programmer) and the
+      actual behaviour.
+\item Essentially, a \textbf{Memory Model} defines the legitimate orderings of read and write
+      to memory locations.
+\pause
+  \begin{itemize}
+  \item A strict memory model - Easy to argue about correctness, but restricts
+        optimizations (both at compiler and hardware level).
+  \item A relaxed memory model - More opportunities for optimizations, but not
+        easy to argue correctness.
+  \end{itemize}
+\pause
+  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Sequential Consistency (SC)}
+\begin{itemize}
+\item Uniprocessor - A "read" returns the last "write" in program order.
+\item Multiprocessor - A "read" may/may not return a value according to "writes" in program order.
+  \begin{itemize}
+  \item Affected by cache coherency, use of write-buffers, register allocation, ...
+  \end{itemize}
+\pause
+\item \textbf{Sequential consistency} - An intuitive extension of uniprocessor model.
+\begin{itemize}
+\item \txcolrb{Program order}: Each core executes statements in program order. 
+\item Cores are switched in an arbitrary (indeterministic) manner.
+\item \txcolrb{Atomicity}: A memory operation executes atomically w.r.t. other memory operations.
+\end{itemize}
+\pause
+\item \underline{An Example}~\cite{Adve2010}\\
+\begin{figure}
+\centering
+Initially $X=Y=0$\\
+\begin{tabular} {l | l }
+\hline
+\txcolr{Red} Thread & \txcolb{Blue} Thread \\
+\hline
+\txcolr{X = 1;}  & \txcolb{Y = 1;} \\
+\txcolr{r1 = Y;} & \txcolb{r2 = X;}\\
+\hline
+\end{tabular}
+\end{figure}
+\pause
+\item Some possible interleavings.
+
+\begin{figure}
+\centering
+\begin{tabular} {l | l | l}
+\hline
+Execution 1 & Execution 2 & Execution 3\\
+\hline
+\txcolr{X = 1;}       & \txcolb{Y = 1;}       & \txcolr{X = 1;} \\
+\txcolr{r1 = Y;}      & \txcolb{r2 = X;}      & \txcolb{Y = 1;}\\
+\txcolb{Y = 1;}       & \txcolr{X = 1;}       & \txcolr{r1 = Y;} \\
+\txcolb{r2 = X;}      & \txcolr{r1 = Y;}      & \txcolb{r2 = X;}\\
+//\txcolr{r1} == 0;   & //\txcolr{r1} == 1;    & //\txcolr{r1} == 1; \\
+//\txcolb{r2} == 1;   & //\txcolb{r2} == 0;    & //\txcolb{r2} == 1;\\
+\hline
+\end{tabular}
+\end{figure}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Relaxed Consistency (RC)}
+\begin{itemize}
+\item Sequential consistency is hard to realize.
+\item Too much restriction for hardware and compiler optmizations
+\item So we require \textbf{Relaxed Consistency Models}.
+\item Same program may exhibit more executions on
+      a relaxed model than SC~\cite{Burckhardt2008}.
+  \begin{itemize}
+  \item Let $T_{\Pi}^Y$ be the set of executions on memory model Y. Then $T_{\Pi}^Y \subset T_{\Pi}^{SC}$.
+  \item TODO: Write formally from paper 
+  \item Write the two steps to verify a problem in RC.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Linearisability}
+\end{frame}
+
+
+
+
+\footnotesize{
+\bibliographystyle{unsrt}
+\bibliography{memmodel}
+}
+
+\end{document} 

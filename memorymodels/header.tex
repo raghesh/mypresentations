@@ -1,0 +1,104 @@
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{semantic}
+\usepackage{stmaryrd}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{url}
+
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{courier}
+\usepackage{enumerate}
+\usepackage{ragged2e}
+\usepackage{fixltx2e}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{footline}{
+            \raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
+\usepackage{listings}
+
+\lstdefinestyle{footnote}{mathescape,captionpos=b, basicstyle=\footnotesize\ttfamily,
+numbers=left, numberstyle=\tiny, xleftmargin=5em}
+\lstdefinestyle{normal}{mathescape,captionpos=b, basicstyle=\normalsize\ttfamily,
+numbers=left, numberstyle=\tiny, xleftmargin=5em}
+\lstdefinestyle{tiny}{mathescape,captionpos=b, basicstyle=\tiny\ttfamily,
+numbers=left, numberstyle=\tiny, xleftmargin=5em}
+\lstdefinestyle{footnote1}{mathescape, basicstyle=\footnotesize\ttfamily}
+\lstdefinestyle{tiny1}{mathescape, basicstyle=\tiny\ttfamily}
+\lstdefinestyle{script1}{mathescape, basicstyle=\scriptsize\ttfamily}
+
+
+%\captionsetup[subfigure]{labelformat=empty} 
+%\DeclareCaptionLabelFormat{no-parens}{\textbf{(#2)}}
+%\captionsetup[sub]{              % The subcaption settings
+%    font=footnotesize,           % Make the font smaller for both label and text
+%    textfont=sl,                 % Make only the caption text slanted
+%    labelformat=no-parens}        % Use our custom label format
+
+%\renewcommand\thesubfigure{(\alph{subfigure})}
+
+\def\openmp{\mbox{OpenMP}}
+\def\pfloop{\mbox{parallel-for-loop}}
+\def\pi{\mbox{agent}}
+\def\pis{\pi\mbox{s}}
+\def\ompsection{\mbox{parallel-section}}
+\def\ompsections{\ompsection\mbox{s}}
+\def\pfloops{\pfloop\mbox{s}}
+\def\lopenmp{\mbox{LOpenMP}}
+\def\canIEnterA{canEnter}
+\def\canIEnter{\mbox{\tt \canIEnterA{}}}
+\def\iexitA{iExit}
+\def\iexit{\mbox{\tt \iexitA{}}}
+\def\gcount{\mbox{\tt Rdy}}
+\def\grpCnt{\mbox{\tt grCnt}}
+\def\pfCnt{\mbox{\tt pfCnt}}
+\def\isDoneA{{Done}}
+\def\isDone{\mbox{\tt \isDoneA{}}}
+\def\lpfCnt{\mbox{\tt lpfCnt}}
+\def\reset{\mbox{\tt reset}}
+\def\pfLoopList{\mbox{\tt pfLoopList}}
+\def\tmpresetA{tmpreset}
+\def\tmpreset{\mbox{\tt \tmpresetA{}}}
+\def\ewiL{\mbox{unique-worker}}
+\def\ewiomp{\mbox{UW-OpenMP}}
+\def\ewi{\mbox{UW}}
+\def\Ss{\mbox{Phase-guard}}
+\def\Cb{\mbox{Barrier-phase-guard}}
+\def\ss{\mbox{phase-guard}}
+\def\cb{\mbox{barrier-phase-guard}}
+\def\Mr{\mbox{Macro-replacement}}
+\def\mr{\mbox{macro-replacement}}
+\def\Nwg{\mbox{Non-while-guard}}
+\def\nwg{\mbox{non-while-guard}}
+\def\bm{\bmname{}\mbox{-model}}
+\def\bmname{\mbox{Base}}
+\def\ewigroup{\mbox{UW-group}}
+\def\ibs{\mbox{iteration-barrier-set}}
+\def\ewiTrans{\mbox{UW-Transformation}}
+\def\ont{\mbox{\small \tt OMP\_NUM\_THREADS}}
+\def\forh{\mbox{\tt for(i=0;i<N;i++)}}
+\def\forha{\mbox{\tt for(i=0;i<4;i++)}}
+\def\th{$^{th}$}
+\newcommand{\myreport}[1]{}
+\newcommand{\txcolr}[1]{\textcolor{red}{#1}}
+\newcommand{\txcolb}[1]{\textcolor{blue}{#1}}
+\newcommand{\txcolbb}[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand{\txvanish}[1]{\textcolor{white}{#1}}
+\newcommand{\txcolrb}[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand{\Eval}[1]{\ensuremath{\llbracket}#1\ensuremath{\rrbracket}}
+\newcommand{\Hset}[1]{\ensuremath{\langle}#1\ensuremath{\rangle}}
+\newcommand{\asplossubmissionnumber}{289}
+\newcommand{\emhead}[1]{$ $\\ \noindent {\bf {\em #1} }}
+% The following \documentclass options may be useful:
+
+% preprint      Remove this option only once the paper is in final form.
+% 10pt          To set in 10-point type instead of 9-point.
+% 11pt          To set in 11-point type instead of 9-point.
+% authoryear    To obtain author/year citation style instead of numeric.
+
+%\usepackage{times}
+
+
+
