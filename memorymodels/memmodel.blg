@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: memmodel.aux
 The style file: unsrt.bst
 Database file #1: memmodel.bib
-You've used 2 entries,
+You've used 3 entries,
             1791 wiz_defined-function locations,
-            465 strings with 3937 characters,
-and the built_in function-call counts, 628 in all, are:
-= -- 66
-> -- 16
+            468 strings with 4035 characters,
+and the built_in function-call counts, 728 in all, are:
+= -- 74
+> -- 17
 < -- 1
-+ -- 6
++ -- 7
 - -- 4
 * -- 42
-:= -- 93
-add.period$ -- 7
-call.type$ -- 2
-change.case$ -- 2
+:= -- 102
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 3
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 30
-empty$ -- 60
+cite$ -- 3
+duplicate$ -- 35
+empty$ -- 78
 format.name$ -- 4
-if$ -- 146
+if$ -- 173
 int.to.chr$ -- 0
-int.to.str$ -- 2
+int.to.str$ -- 3
 missing$ -- 2
-newline$ -- 13
+newline$ -- 17
 num.names$ -- 2
-pop$ -- 4
+pop$ -- 10
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 20
+skip$ -- 26
 stack$ -- 0
 substring$ -- 54
-swap$ -- 11
+swap$ -- 12
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
 while$ -- 7
-width$ -- 3
-write$ -- 27
+width$ -- 4
+write$ -- 34

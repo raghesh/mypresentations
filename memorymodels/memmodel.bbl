@@ -5,6 +5,10 @@ Sarita~V. Adve and Hans-J. Boehm.
 \newblock Memory models: A case for rethinking parallel languages and hardware.
 \newblock {\em Commun. ACM}, 53(8):90--101, August 2010.
 
+\bibitem{rajeev-utah}
+{Memory Consistency Models}.
+\newblock \url{http://www.cs.utah.edu/~rajeev/cs7820/pres/7820-12.pdf}.
+
 \bibitem{Burckhardt2008}
 Sebastian Burckhardt and Madanlal Musuvathi.
 \newblock Effective program verification for relaxed memory models.
