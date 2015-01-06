@@ -64,8 +64,6 @@
   \item A relaxed memory model - More opportunities for optimizations, but not
         easy to argue correctness.
   \end{itemize}
-\pause
-  
 \end{itemize}
 \end{frame}
 
@@ -86,6 +84,7 @@
 \pause
 \item \underline{An Example}~\cite{Adve2010}\\
 \begin{figure}
+\small
 \centering
 Initially $X=Y=0$\\
 \begin{tabular} {l | l }
@@ -101,6 +100,7 @@ Initially $X=Y=0$\\
 \item Some possible interleavings.
 
 \begin{figure}
+\small
 \centering
 \begin{tabular} {l | l | l}
 \hline
@@ -125,7 +125,8 @@ Execution 1 & Execution 2 & Execution 3\\
 \item Too much restriction for hardware and compiler optmizations
 \item Even SC may not always be produce correct output.
 \item So we can live with \textbf{Relaxed Consistency Models}.
-\item Potential relaxations
+\pause
+\item Potential relaxations~\cite{rajeev-utah}
   \begin{itemize}
   \item Program order: (Refers to different memory locations)
     \begin{itemize}
@@ -133,10 +134,12 @@ Execution 1 & Execution 2 & Execution 3\\
     \item Relax $W \rightarrow W$ program order.
     \item Relax $R \rightarrow R$ and $R \rightarrow W$ program order.
     \end{itemize}
-  \item Write atomicite: (Refers to same memory location)
+\pause
+  \item Write atomicity: (Refers to same memory location)
     \begin{itemize}
     \item Read others' write early.
     \end{itemize}
+\pause
   \item Write atomicity and program order.
     \begin{itemize}
     \item Read own write early
@@ -146,6 +149,14 @@ Execution 1 & Execution 2 & Execution 3\\
 \end{frame}
 
 \begin{frame}{Total Store Order (TSO)}
+\underline{\textbf{Definition}}~\cite{rajeev-utah}:\\
+\begin{enumerate}
+\item A read can complete before an earlier write to a different address.
+\item A read can not return the value of a write by another processor unless all
+      processors have seen the write.
+\item A read can return the value of own write before others see it (Makes use of store buffers).
+\end{enumerate}
+\pause
 \begin{figure}
 \small
 \begin{tabular}{|l|p{1.2cm}|p{1.2cm}|p{1.3cm}|p{1.2cm}|p{1.2cm}|}
@@ -156,6 +167,57 @@ TSO   & $\surd$                 &                         &                     
 \hline
 \end{tabular}
 \end{figure}
+\pause
+\begin{itemize}
+\item \underline{An Example}\\
+\begin{figure}
+\small
+\centering
+Initially $X=Y=0$\\
+\begin{tabular} {l | l }
+\hline
+\txcolr{Red} Thread & \txcolb{Blue} Thread \\
+\hline
+\txcolr{X = 1;}  & \txcolb{Y = 1;} \\
+\txcolr{r1 = Y;} & \txcolb{r2 = X;}\\
+\hline
+\end{tabular}
+\end{figure}
+\pause
+\item Some possible interleavings (in addition to that of SC).
+\begin{minipage}{0.4\textwidth}
+\begin{figure}
+\centering
+\small
+\begin{tabular} {|l|l|}
+\hline
+Time & Execution 1 \\
+\hline
+$t_1$ & \txcolr{r1 = Y;}   \\
+\hline
+$t_2 = t_1 + \delta$ & \txcolr{X = 1;}    \\
+\hline
+$t_2 = t_1 + \delta$ & \txcolb{Y = 1;}     \\
+\hline
+$t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
+\hline
+                     &//\txcolr{r1} == 0;\\
+\hline
+                     &//\txcolb{r2} == 1;\\
+\hline
+\end{tabular}
+\end{figure}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{itemize}
+\item Effect of 1: It is possible to reorder read to \txcolr{Y} before write to \txcolr{X}.
+\item Effect of 2: It is impossible to get value of \txcolb{r2} as 0, by reading 0 from \txcolb{X},
+      because an earlier write to \txcolr{X} by \txcolr{Red} thread should have seen by the \txcolb{Blue}
+      thread.
+\end{itemize}
+\end{minipage}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}{Relaxed Consistency (RC)}
@@ -174,12 +236,6 @@ TSO   & $\surd$                 &                         &                     
   \end{itemize}
 \end{itemize}
 \end{frame}
-
-\begin{frame}{Linearisability}
-\end{frame}
-
-
-
 
 \begin{frame}{Relaxed Consistency (RC)}
 \begin{itemize}
