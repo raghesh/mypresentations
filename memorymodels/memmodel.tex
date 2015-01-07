@@ -216,15 +216,18 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
       thread.
 \end{itemize}
 \end{minipage}
+\pause
+\small
+\item r1 = 0 and r2 = 0 is possible in TSO, but not in SC !!!
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Relaxed Consistency (RC)}
+\begin{frame}{Correctness of RC~\cite{Burckhardt2008}}
 \begin{itemize}
 \item Same program may exhibit more executions on
       a relaxed model than SC~\cite{Burckhardt2008}.
-\item Let $T_{\Pi}^Y$ be the set of executions on memory model Y.
+\item Let $T_{\Pi}^Y$ be the set of executions of program $\Pi$ on memory model Y.
         Then $T_{\Pi}^Y \subset T_{\Pi}^{SC}$~\cite{Burckhardt2008}.
 \item To verify relaxed executions \rlxset{}, verify following two problems.
   \begin{itemize}
@@ -237,25 +240,6 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Relaxed Consistency (RC)}
-\begin{itemize}
-\item Same program may exhibit more executions on
-      a relaxed model than SC~\cite{Burckhardt2008}.
-  \item Let $T_{\Pi}^Y$ be the set of executions on memory model Y.
-        Then $T_{\Pi}^Y \subset T_{\Pi}^{SC}$~\cite{Burckhardt2008}.
-  \item To verify relaxed executions \rlxset{}, verify following two problems.
-  \begin{itemize}
-  \item Use standard verification methodology for concurrent programs to show that
-        the executions in \scset{} are correct.
-  \item Use specialized methodology for {\em memory model safety} verification
-        showing that \rlxset{} $=$ \scset{}.
-  \item The program is $Y-safe$  if \rlxset{} $=$ \scset{}.
-  \end{itemize}
-\end{itemize}
-\end{frame}
-\begin{frame}{Total Store Order (TSO)}
-
-\end{frame}
 \begin{frame}{Linearisability}
 \end{frame}
 
