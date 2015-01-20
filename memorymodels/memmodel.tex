@@ -123,7 +123,7 @@ Execution 1 & Execution 2 & Execution 3\\
 \begin{itemize}
 \item SC is hard to realize.
 \item Too much restriction for hardware and compiler optmizations
-\item Even SC may not always be produce correct output.
+\item Even SC may not always produce correct output.
 \item So we can live with \textbf{Relaxed Consistency Models}.
 \pause
 \item Potential relaxations~\cite{rajeev-utah}
@@ -228,7 +228,7 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \item Same program may exhibit more executions on
       a relaxed model than SC~\cite{Burckhardt2008}.
 \item Let $T_{\Pi}^Y$ be the set of executions of program $\Pi$ on memory model Y.
-        Then $T_{\Pi}^Y \subset T_{\Pi}^{SC}$~\cite{Burckhardt2008}.
+        Then $T_{\Pi}^{SC} \subset T_{\Pi}^Y$~\cite{Burckhardt2008}.
 \item To verify relaxed executions \rlxset{}, verify following two problems.
   \begin{itemize}
   \item Use standard verification methodology for concurrent programs to show that
@@ -239,6 +239,16 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
   \end{itemize}
 \end{itemize}
 \end{frame}
+
+\begin{frame}{Correctness of RC~\cite{Burckhardt2008}}
+\begin{itemize}
+\item Generally usage {\em Store buffers} corresponds to TSO.
+\item This paper uses TSO-safety and store-buffer-safety interchangably.
+\item \textbf{Borderline execution} - SC execution extended into $T_{\Pi}^{TSO} \setminus  T_{\Pi}^{SC}$.
+\item A program is store-buffer-safe exactly if there are no borderline executions.
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Linearisability}
 \end{frame}
