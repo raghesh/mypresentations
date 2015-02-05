@@ -72,7 +72,7 @@
 \item Uniprocessor - A "read" returns the last "write" in program order.
 \item Multiprocessor - A "read" may/may not return a value according to "writes" in program order.
   \begin{itemize}
-  \item Affected by cache coherency, use of write-buffers, register allocation, ...
+  \item Affected by use of write-buffers, register allocation, ...
   \end{itemize}
 \pause
 \item \textbf{Sequential consistency} - An intuitive extension of uniprocessor model.
@@ -123,7 +123,7 @@ Execution 1 & Execution 2 & Execution 3\\
 \begin{itemize}
 \item SC is hard to realize.
 \item Too much restriction for hardware and compiler optmizations
-\item Even SC may not always produce correct output.
+\item Even SC may not always produce expected output.
 \item So we can live with \textbf{Relaxed Consistency Models}.
 \pause
 \item Potential relaxations~\cite{rajeev-utah}
@@ -152,8 +152,8 @@ Execution 1 & Execution 2 & Execution 3\\
 \underline{\textbf{Definition}}~\cite{rajeev-utah}:\\
 \begin{enumerate}
 \item A read can complete before an earlier write to a different address.
-\item A read can not return the value of a write by another processor unless all
-      processors have seen the write.
+%\item A read can not return the value of a write by another processor unless all
+%      processors have seen the write.
 \item A read can return the value of own write before others see it (Makes use of store buffers).
 \end{enumerate}
 \pause
@@ -193,17 +193,17 @@ Initially $X=Y=0$\\
 \hline
 Time & Execution 1 \\
 \hline
-$t_1$ & \txcolr{r1 = Y;}   \\
+$t_1$									& \txcolr{r1 = Y;}   \\
 \hline
-$t_2 = t_1 + \delta$ & \txcolr{X = 1;}    \\
+$t_2 = t_1 + \delta$ 	& \txcolr{X = 1;}    \\
 \hline
-$t_2 = t_1 + \delta$ & \txcolb{Y = 1;}     \\
+$t_2 = t_1 + \delta$ 	& \txcolb{Y = 1;}     \\
 \hline
 $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \hline
-                     &//\txcolr{r1} == 0;\\
+                     	&//\txcolr{r1} == 0;\\
 \hline
-                     &//\txcolb{r2} == 1;\\
+                     	&//\txcolb{r2} == 0;\\
 \hline
 \end{tabular}
 \end{figure}
@@ -211,9 +211,9 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \begin{minipage}{0.5\textwidth}
 \begin{itemize}
 \item Effect of 1: It is possible to reorder read to \txcolr{Y} before write to \txcolr{X}.
-\item Effect of 2: It is impossible to get value of \txcolb{r2} as 0, by reading 0 from \txcolb{X},
-      because an earlier write to \txcolr{X} by \txcolr{Red} thread should have seen by the \txcolb{Blue}
-      thread.
+\item Effect of 2: It is possible to get value of \txcolb{r2} as 0, because an
+      earlier write to \txcolr{X} by \txcolr{Red} thread might have stored in
+      store-buffer and is unseen by the \txcolb{Blue} thread.
 \end{itemize}
 \end{minipage}
 \pause
@@ -222,6 +222,69 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \end{itemize}
 
 \end{frame}
+
+\begin{frame}{Verification of Memory models}
+\underline{Paper 1:}\\
+\vspace{0.3cm}
+\underline{Title}: \textbf{On the verification problem for Weak Memory Models}\\
+\underline{Authors}: {\em Mohamed Faouzi Atig, Ahmed Bouajjani, Sebastian Burckhardt, Mandanlal Musuvanthi.}\\
+\underline{Appeared in}: POPL'10\\
+\pause
+\vspace{0.3cm}
+\begin{itemize}
+\item Addresses the verification problem of finite-state-concurrent programs running under
+      weak memory models.
+\pause
+\item Important for
+	\begin{itemize}
+  \item Correctness of concurrency libraries.
+  \item Correctness of compiler transformations.
+	\end{itemize}
+\pause
+\item Weak memory models considered.
+  \begin{itemize}
+  \item Relaxing "write to read" order - TSO (Total Store Order).
+  \item Relaxing "write to read" and "write to write" order - PSO (Partial Store Order).
+  \item Relaxing "read to read/write" - RMO (Relaxed Memory Ordering).
+  \end{itemize}
+\pause
+\item Abstract operational models for weak memory models are defined based on state
+      machines with (potentially unbound) FIFO buffers.
+\pause
+\item Studied the decidability of thier reachability and repeated reachability
+      problems.
+\pause
+\item Proved that
+	\begin{itemize}
+  \item \textbf{reachability} problem is \textbf{decidable} for TSO and PSO.
+  \item \textbf{reachability} problem is \textbf{undicidable} for RMO.
+  \item \textbf{repeated reachability} problem is \textbf{undecidable} for all models.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Verification of Memory models}
+\begin{itemize}
+\item A formal model of concurrent finite-state programs on a TSO system.
+	\begin{itemize}
+	\item A finite-state control representing local program states of each thread.
+  \item Unbounded FIFO queues storing contents of store buffers.
+	\end{itemize}
+\pause
+\item The decidability problems are studied by establishing a close connection
+      between TSO systems and lossy FIFO Channels.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\underline{\textbf{Definitions and Notations}}:\\
+\begin{itemize}
+\item Let $k \in \mathbb{N}, k \ge 1$, Then $[k]$ denotes the set of intergers
+$\{1,...,k\}$.
+\item $\Sigma$ - finite alphabet, $\varepsilon$ - empty word, $\Sigma_\varepsilon$ is $\Sigma \cup \{\varepsilon\}$.
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Correctness of RC}
 \underline{Paper}\\
@@ -280,9 +343,6 @@ Then\\
 
 \begin{frame}{Linearisability}
 \end{frame}
-
-
-
 
 \footnotesize{
 \bibliographystyle{unsrt}
