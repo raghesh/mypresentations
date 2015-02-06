@@ -10,6 +10,8 @@
 
 \begin{document}
 
+
+
 % slide
 \begin{frame}
 \titlepage
@@ -151,6 +153,7 @@ Execution 1 & Execution 2 & Execution 3\\
 \begin{frame}{Total Store Order (TSO)}
 \underline{\textbf{Definition}}~\cite{rajeev-utah}:\\
 \begin{enumerate}
+
 \item A read can complete before an earlier write to a different address.
 %\item A read can not return the value of a write by another processor unless all
 %      processors have seen the write.
@@ -276,12 +279,30 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Verification of Memory models}
 \underline{\textbf{Definitions and Notations}}:\\
+
 \begin{itemize}
 \item Let $k \in \mathbb{N}, k \ge 1$, Then $[k]$ denotes the set of intergers
 $\{1,...,k\}$.
 \item $\Sigma$ - finite alphabet, $\varepsilon$ - empty word, $\Sigma_\varepsilon$ is $\Sigma \cup \{\varepsilon\}$.
+\item $length(w)$ - length of a word, $length(\varepsilon) = 0$.
+\item $\forall i \in [lenght(w)]$, $w(i)$ denotes the symbol at position $i$ in $w$.
+\item For $a \in \Sigma$ and $w \in \Sigma^{*}$, $a \in w$ if $\exists i \in [length(w)]$ s.t $a=w(i)$.
+\pause
+\item Let $\Theta \subseteq \Sigma$ and a word $u \in \Sigma^{*}$, the \textbf{projection} of $u$ over $\Theta$, $u|_\Theta$
+      is the word obtained from u by erasing all the symbols that are not in $\Theta$.
+\pause
+\item A \textbf{substitution} $\sigma$ over $\Sigma$ is a mapping from $\Sigma$ to $\Sigma$.
+	\begin{itemize}
+	\item $w[\sigma]$ is the word s.t. $\forall i \in [length(w)]$, $w[\sigma](i) = \sigma(w(i))$.
+  \item Generalizing to sets of words: $\forall L \subseteq \Sigma^*$, $L[\sigma] = {w[\sigma] | w \in L}$.
+  \end{itemize}
+\pause
+\item $E$ is a set, $k \ge 1$. Let $\mathbf{e} = (e_1,...,e_k) \in E^k$ be $k$-dim vector over $E$.
+      $\forall j \in [k]$ and $e^{\prime} \in E$, $\mathbf{e}[j \hookleftarrow e^{\prime}]$ denotes the $k$-dim vector
+      $\mathbf{e}^{\prime}$ over $E$ defined as: $\mathbf{e^{\prime}}[j] = e^{\prime}$ and $\mathbf{e^{\prime}}[l] = \mathbf{e}[l]$ 
+      for all $l \neq j$.
 \end{itemize}
 \end{frame}
 
