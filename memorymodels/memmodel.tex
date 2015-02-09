@@ -266,7 +266,7 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Verification of Memory models}
+\begin{frame}{Paper 1: On the verification problem for Weak Memory Models}
 \begin{itemize}
 \item A formal model of concurrent finite-state programs on a TSO system.
 	\begin{itemize}
@@ -279,7 +279,7 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Verification of Memory models}
+\begin{frame}{Paper 1: On the verification problem for Weak Memory Models}
 \underline{\textbf{Definitions and Notations}}:\\
 
 \begin{itemize}
@@ -296,17 +296,41 @@ $\{1,...,k\}$.
 \item A \textbf{substitution} $\sigma$ over $\Sigma$ is a mapping from $\Sigma$ to $\Sigma$.
 	\begin{itemize}
 	\item $w[\sigma]$ is the word s.t. $\forall i \in [length(w)]$, $w[\sigma](i) = \sigma(w(i))$.
-  \item Generalizing to sets of words: $\forall L \subseteq \Sigma^*$, $L[\sigma] = {w[\sigma] | w \in L}$.
+  \item Generalizing to sets of words: $\forall L \subseteq \Sigma^*$, $L[\sigma] = \{w[\sigma] | w \in L\}$.
   \end{itemize}
 \pause
 \item $E$ is a set, $k \ge 1$. Let $\mathbf{e} = (e_1,...,e_k) \in E^k$ be $k$-dim vector over $E$.
       $\forall j \in [k]$ and $e^{\prime} \in E$, $\mathbf{e}[j \hookleftarrow e^{\prime}]$ denotes the $k$-dim vector
       $\mathbf{e}^{\prime}$ over $E$ defined as: $\mathbf{e^{\prime}}[j] = e^{\prime}$ and $\mathbf{e^{\prime}}[l] = \mathbf{e}[l]$ 
       for all $l \neq j$.
+\pause 
+\item $E$ and $F$ are two sets. $[E \rightarrow F]$ denotes the set of all mappings from $E$ to $F$. 
+       Let $E = \{e_1,...,e_k\}$ for some integer $k \ge 1$. Then sometimes a mapping is identified
+       $\mathbf{g} \in [E \rightarrow F]$ with a $k$-dim vector over $F$.
+       i.e., $\mathbf{g} \in F^k$ with $\mathbf{g}[i] = e_i$ for all $i \in [k]$.
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Paper 1: On the verification problem for Weak Memory Models}
+\underline{\textbf{TSO/PSO concurrent systems}}
+\begin{itemize}
+\item $D$ - A finite dataa domain.
+\item $X = {x_1,...,x_m}$ - A finite set of variables s.t $\forall i, x_i \in D$.
+\item $M = D^m$ - The set of all possible valuations of the variables in X.
+\item $I$ - Finite set of process identifiers.
+\item $\Omega(I,D,X)$ - The smallest set of operations containing
+	\begin{enumerate}
+	\item $nop$ - "\em{no operation}".
+	\item $r(i,x,d)$ - \em{read operations}.
+	\item $w(i,x,d)$ - \em{write operations}.
+	\item $arw(i,x,d,d^{\prime})$ - \em{atomic read-write operations}.
+	\end{enumerate}
+	where $i \in I$, $x \in X$, $d,d^{\prime} \in D$.
+\item A \textbf{concurrent} system over $D$ and $X$ is a tuple $\mathpzc{N} = 
+      (\mathpzc{P_1},...,\mathpzc{P_2})$.
+\end{itemize}
 
+\end{frame}
 \begin{frame}{Correctness of RC}
 \underline{Paper}\\
 Effective Program Verification for Relaxed Memory Models, by Sebastian Burckhardt and
