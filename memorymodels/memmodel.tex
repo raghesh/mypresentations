@@ -314,8 +314,8 @@ $\{1,...,k\}$.
 \begin{frame}{Paper 1: On the verification problem for Weak Memory Models}
 \underline{\textbf{TSO/PSO concurrent systems}}
 \begin{itemize}
-\item $D$ - A finite dataa domain.
-\item $X = {x_1,...,x_m}$ - A finite set of variables s.t $\forall i, x_i \in D$.
+\item $D$ - A finite data domain.
+\item $X = \{x_1,...,x_m\}$ - A finite set of variables s.t $\forall i, x_i \in D$.
 \item $M = D^m$ - The set of all possible valuations of the variables in X.
 \item $I$ - Finite set of process identifiers.
 \item $\Omega(I,D,X)$ - The smallest set of operations containing
@@ -326,11 +326,81 @@ $\{1,...,k\}$.
 	\item $arw(i,x,d,d^{\prime})$ - \em{atomic read-write operations}.
 	\end{enumerate}
 	where $i \in I$, $x \in X$, $d,d^{\prime} \in D$.
+\pause
 \item A \textbf{concurrent} system over $D$ and $X$ is a tuple $\mathpzc{N} = 
-      (\mathpzc{P_1},...,\mathpzc{P_2})$.
+      (\mathpzc{P_1},...,\mathpzc{P_n})$, where 
+	\begin{itemize}
+	\item $i=[n]$,
+	\item $\mathpzc{P_i} = (P_i, \Delta_i)$,
+	\item $P_i$ - Finite set of control states,
+	\item $\Delta_i \subseteq P_i \times \Omega(\{i\}, D, X) \times P_i$ - Finite
+	      set of transition rules.
+	\item $p \overset{op}{\longrightarrow} p^{\prime}$ implies $(p, op, p^{prime}) \in \Delta_i$,
+		    for any $p, p^{prime} \in P_i$ and $op \in \Omega({i}, D, X)$.
+	\end{itemize}
 \end{itemize}
-
 \end{frame}
+
+\begin{frame}{Paper 1: On the verification problem for Weak Memory Models}
+\underline{\textbf{An operational model for TSO}}
+\begin{itemize}
+\item In TSO the sequence $w(i, y, d^{\prime})r(i,x,d)$ can be reordered to $r(i,x,d)w(i, y, d^{\prime})$
+		  provided
+			\begin{itemize}
+			\item they are performed by same process,
+			\item $x \neq y$.
+			\end{itemize}
+\item For each process a FIFO buffer is associated to store the write operations.
+\pause
+\item $\mathbf{P} = P_1 \times...\times P_n$.
+\item $B_i = \{i\} \times [m] \times D$ - Alphabet of the store for process $\mathpzc{P_i}$, $i \in [n]$.
+\pause
+\item Configuration $\mathpzc{N}$ - $\langle \mathbf{p}, \mathbf{d}, \mathbf{u} \rangle$, where $\mathbf{p} \in \mathbf{P}$,
+	    $\mathbf{d}, \mathbf{d^{\prime}} \in M$ and $\mathbf{u} \in B_1 \times...\times B_n$ (valuation of 
+			store buffers).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Paper 1: On the verification problem for Weak Memory Models}
+\underline{\textbf{An operational model for TSO}}\\
+\begin{itemize}
+\item \underline{Transition relation $\Longrightarrow_\mathpzc{N}$}
+\begin{itemize}
+\item $\langle \mathbf{p}, \mathbf{d}, \mathbf{u}\rangle \Longrightarrow_\mathpzc{N} \langle \mathbf{p^{\prime}}, \mathbf{d^{\prime}}, \mathbf{u^{\prime}} \rangle$,
+      if there is an $i \in [n]$ and $p, p^{\prime} \in P_i$ s.t $\mathbf{p}[i] = p$,
+			$\mathbf{p^{\prime}} = \mathbf{p}[i \hookleftarrow p{\prime}]$ and one of the following holds
+			\begin{enumerate}
+			\item Nop:\\
+			\vspace{2mm}
+				    $p \overset{nop}{\longrightarrow}_i p{\prime}$, $\mathbf{d} = \mathbf{d^{\prime}}$, $\mathbf{u} = \mathbf{u^{\prime}}$.
+			\vspace{2mm}
+			\item Write to store: Store write operation to the FIFO buffer.\\
+			\vspace{2mm}
+						$p \overset{w(i,x,d)}{\longrightarrow}_i p{\prime}$, $\mathbf{u^{\prime}} = \mathbf{u}[i \hookleftarrow (i,j,d)\mathbf{u}[i]]$
+						and $\mathbf{d} = \mathbf{d^{\prime}}$.
+			\vspace{2mm}
+			\item Update: Choose a process non-deterministically and update memory by executing the first write operation
+										in its buffer.\\
+			\vspace{2mm}
+						$p = p^{\prime}$ and $\exists j \in [m].\exists d \in D.\mathbf{u} = \mathbf{u}^{\prime}[i \hookleftarrow
+						\mathbf{u}^{\prime}[i](i,j,d)]$ and $\mathbf{d}^{\prime} = \mathbf{d}[j \hookleftarrow d]$.
+			\vspace{2mm}
+			\item Read: A read by process $\mathpzc{P}_i$ to variable $x_j$ can overtake write operations in its own store
+						buffer if these operations are on other variables than $x_j$.\\
+			\vspace{2mm}
+						(Read memory): $\forall (i,k,d^{\prime}) \in \mathbf{u}[i].k \neq j$, and $\mathbf{d}[j] = d$.\\
+						(Read own write): $\exists u_1, u_2 \in B_i^*.(\mathbf{u}[i] = u_1(i,j,d)u_2$ and
+															$\forall (i,k,d^{\prime}) \in u_1.k \neq j)$.
+			\vspace{2mm}
+			\item ARW:\\
+			\vspace{2mm}
+			$p \overset{arw(i,x_j,d,d^{\prime}}{\longrightarrow}_i p^{\prime}, \mathbf{u}[i] = \varepsilon, \mathbf{u} = \mathbf{u}^{\prime}$,
+					and $\mathbf{d}[j] = d$, and $\mathbf{d}^{\prime} = \mathbf{d}[j \hookleftarrow d^{\prime}])$.
+			\end{enumerate}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Correctness of RC}
 \underline{Paper}\\
 Effective Program Verification for Relaxed Memory Models, by Sebastian Burckhardt and
