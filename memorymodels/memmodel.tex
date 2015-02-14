@@ -230,12 +230,12 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
 \underline{Paper 1:}\\
 \vspace{0.3cm}
 \underline{Title}: \textbf{On the verification problem for Weak Memory Models}\\
-\underline{Authors}: {\em Mohamed Faouzi Atig, Ahmed Bouajjani, Sebastian Burckhardt, Mandanlal Musuvanthi.}\\
+\underline{Authors}: {\em Mohamed Faouzi Atig, Ahmed Bouajjani, Sebastian Burckhardt, Mandanlal Musuvathi.}\\
 \underline{Appeared in}: POPL'10\\
 \pause
 \vspace{0.3cm}
 \begin{itemize}
-\item Addresses the verification problem of finite-state-concurrent programs running under
+\item Addresses the verification problem of finite-state-concurrent programs under
       weak memory models.
 \pause
 \item Important for
@@ -251,8 +251,13 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
   \item Relaxing "read to read/write" - RMO (Relaxed Memory Ordering).
   \end{itemize}
 \pause
-\item Abstract operational models for weak memory models are defined based on state
-      machines with (potentially unbound) FIFO buffers.
+\item Operational models for weak memory models are defined based on state
+      machines with (unbound) FIFO buffers.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Paper 1: On the verification problem for Weak Memory Models}
+\begin{itemize}
 \pause
 \item Studied the decidability of thier reachability and repeated reachability
       problems.
@@ -263,11 +268,7 @@ $t_3 = t_2 + \delta$  & \txcolb{r2 = X;}   \\
   \item \textbf{reachability} problem is \textbf{undicidable} for RMO.
   \item \textbf{repeated reachability} problem is \textbf{undecidable} for all models.
 	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Paper 1: On the verification problem for Weak Memory Models}
-\begin{itemize}
+\pause
 \item A formal model of concurrent finite-state programs on a TSO system.
 	\begin{itemize}
 	\item A finite-state control representing local program states of each thread.
@@ -330,13 +331,13 @@ $\{1,...,k\}$.
 \item A \textbf{concurrent} system over $D$ and $X$ is a tuple $\mathpzc{N} = 
       (\mathpzc{P_1},...,\mathpzc{P_n})$, where 
 	\begin{itemize}
-	\item $i=[n]$,
+	\item $i \in [n]$,
 	\item $\mathpzc{P_i} = (P_i, \Delta_i)$,
 	\item $P_i$ - Finite set of control states,
 	\item $\Delta_i \subseteq P_i \times \Omega(\{i\}, D, X) \times P_i$ - Finite
 	      set of transition rules.
-	\item $p \overset{op}{\longrightarrow} p^{\prime}$ implies $(p, op, p^{prime}) \in \Delta_i$,
-		    for any $p, p^{prime} \in P_i$ and $op \in \Omega({i}, D, X)$.
+	\item $p \overset{op}{\longrightarrow} p^{\prime}$ implies $(p, op, p^{\prime}) \in \Delta_i$,
+		    for any $p, p^{\prime} \in P_i$ and $op \in \Omega({i}, D, X)$.
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -353,7 +354,7 @@ $\{1,...,k\}$.
 \item For each process a FIFO buffer is associated to store the write operations.
 \pause
 \item $\mathbf{P} = P_1 \times...\times P_n$.
-\item $B_i = \{i\} \times [m] \times D$ - Alphabet of the store for process $\mathpzc{P_i}$, $i \in [n]$.
+\item $B_i = \{i\} \times [m] \times D$ - Alphabet of the store for the store buffer for $\mathpzc{P_i}$, $i \in [n]$.
 \pause
 \item Configuration $\mathpzc{N}$ - $\langle \mathbf{p}, \mathbf{d}, \mathbf{u} \rangle$, where $\mathbf{p} \in \mathbf{P}$,
 	    $\mathbf{d}, \mathbf{d^{\prime}} \in M$ and $\mathbf{u} \in B_1 \times...\times B_n$ (valuation of 
@@ -368,7 +369,7 @@ $\{1,...,k\}$.
 \begin{itemize}
 \item $\langle \mathbf{p}, \mathbf{d}, \mathbf{u}\rangle \Longrightarrow_\mathpzc{N} \langle \mathbf{p^{\prime}}, \mathbf{d^{\prime}}, \mathbf{u^{\prime}} \rangle$,
       if there is an $i \in [n]$ and $p, p^{\prime} \in P_i$ s.t $\mathbf{p}[i] = p$,
-			$\mathbf{p^{\prime}} = \mathbf{p}[i \hookleftarrow p{\prime}]$ and one of the following holds
+			$\mathbf{p}^{\prime} = \mathbf{p}[i \hookleftarrow p{\prime}]$ and one of the following holds
 			\begin{enumerate}
 			\item Nop:\\
 			\vspace{2mm}
